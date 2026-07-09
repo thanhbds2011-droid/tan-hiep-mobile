@@ -744,25 +744,13 @@
     const errorText = document.getElementById("errorText");
     const btnKhoaCongLenh = document.getElementById("btnKhoaCongLenh");
 
-    function themChongCache(link) {
-      const dauNoi = link.includes("?") ? "&" : "?";
-      return link + dauNoi + "openFrom=tan-hiep-mobile&t=" + Date.now();
-    }
+    function moLinkTrucTiep(link) {
+  window.location.href = link;
+}
 
-    function moFrame(link, loai) {
-      appFrame.src = themChongCache(link);
-
-      homeView.style.display = "none";
-      frameView.style.display = "block";
-
-      if (loai === "conglenh") {
-        btnKhoaCongLenh.style.display = "inline-flex";
-      } else {
-        btnKhoaCongLenh.style.display = "none";
-      }
-
-      sessionStorage.setItem("tabDangMo", loai);
-    }
+function moVanBan() {
+  moLinkTrucTiep(LINK_VAN_BAN);
+}
 
     function moVanBan() {
       moFrame(LINK_VAN_BAN, "vanban");
@@ -799,9 +787,7 @@
       moCongLenh();
     }
 
-    function moCongLenh() {
-      moFrame(LINK_CONG_LENH, "conglenh");
-    }
+    
 
     function dongHopMatKhau() {
       lockLayer.style.display = "none";
