@@ -6,11 +6,11 @@
 
   <title>Ứng dụng Tân Hiệp</title>
 
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#991b1b">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Tân Hiệp">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#991b1b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Tân Hiệp" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <style>
     * {
@@ -20,7 +20,7 @@
 
     :root {
       --red: #991b1b;
-      --red-light: #b91c1c;
+      --red-2: #b91c1c;
       --blue: #1d4ed8;
       --orange: #c2410c;
       --green: #047857;
@@ -28,15 +28,15 @@
       --muted: #6b7280;
       --border: #e5e7eb;
       --bg: #f8fafc;
-      --card: #ffffff;
-      --shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
-      --radius: 24px;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(15, 23, 42, 0.13);
+      --radius: 26px;
     }
 
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      height: 100%;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
@@ -53,26 +53,33 @@
       font-family: inherit;
     }
 
-    /* ===============================
-       MÀN HÌNH CHÍNH
-    =============================== */
+    button {
+      border: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================
+       TRANG CHỦ
+    ========================= */
 
     .home-view {
       width: 100%;
       height: 100vh;
       overflow-y: auto;
+      padding: calc(18px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
       background:
-        radial-gradient(circle at 10% 0%, rgba(185, 28, 28, 0.18), transparent 34%),
-        radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.18), transparent 32%),
+        radial-gradient(circle at 8% 0%, rgba(185, 28, 28, 0.18), transparent 34%),
+        radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.17), transparent 34%),
         linear-gradient(180deg, #fff7f7 0%, #f8fafc 48%, #eef2ff 100%);
-      padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
     }
 
     .container {
       width: 100%;
       max-width: 1120px;
       margin: 0 auto;
-      padding: 26px 0 34px;
     }
 
     .topbar {
@@ -80,7 +87,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .brand {
@@ -91,10 +98,10 @@
     }
 
     .logo {
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       border-radius: 18px;
-      background: #fff;
+      background: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -129,7 +136,7 @@
     .system-status {
       padding: 9px 14px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid rgba(229, 231, 235, 0.95);
       box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
       color: #374151;
@@ -144,8 +151,7 @@
       border-radius: 32px;
       padding: 30px;
       color: #fff;
-      background:
-        linear-gradient(135deg, #991b1b 0%, #7f1d1d 46%, #111827 100%);
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 48%, #111827 100%);
       box-shadow: var(--shadow);
       margin-bottom: 20px;
     }
@@ -153,23 +159,23 @@
     .hero::before {
       content: "";
       position: absolute;
-      right: -80px;
-      top: -90px;
-      width: 260px;
-      height: 260px;
+      right: -90px;
+      top: -95px;
+      width: 270px;
+      height: 270px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.10);
+      background: rgba(255, 255, 255, 0.10);
     }
 
     .hero::after {
       content: "";
       position: absolute;
-      right: 110px;
-      bottom: -120px;
-      width: 220px;
-      height: 220px;
+      right: 120px;
+      bottom: -130px;
+      width: 230px;
+      height: 230px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.07);
+      background: rgba(255, 255, 255, 0.07);
     }
 
     .hero-content {
@@ -184,8 +190,8 @@
       gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       font-size: 13px;
       font-weight: 800;
       margin-bottom: 14px;
@@ -200,7 +206,7 @@
 
     .hero p {
       margin: 12px 0 0;
-      color: rgba(255,255,255,0.86);
+      color: rgba(255, 255, 255, 0.88);
       font-size: 15px;
       line-height: 1.65;
     }
@@ -216,20 +222,21 @@
       min-height: 220px;
       padding: 23px;
       border-radius: var(--radius);
-      background: rgba(255,255,255,0.90);
-      border: 1px solid rgba(229, 231, 235, 0.92);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(229, 231, 235, 0.96);
       box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      text-align: left;
     }
 
     .app-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 46px rgba(15, 23, 42, 0.14);
-      border-color: rgba(153, 27, 27, 0.28);
+      border-color: rgba(153, 27, 27, 0.30);
     }
 
     .card-top {
@@ -314,8 +321,8 @@
     .info-box {
       padding: 16px;
       border-radius: 18px;
-      background: rgba(255,255,255,0.82);
-      border: 1px solid rgba(229, 231, 235, 0.92);
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(229, 231, 235, 0.94);
       color: #374151;
       font-size: 13px;
       line-height: 1.55;
@@ -333,11 +340,18 @@
       text-align: center;
       color: #6b7280;
       font-size: 12px;
+      line-height: 1.5;
     }
 
-    /* ===============================
-       MỞ ỨNG DỤNG CON TOÀN MÀN HÌNH
-    =============================== */
+    .version {
+      margin-top: 5px;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    /* =========================
+       IFRAME TOÀN MÀN HÌNH
+    ========================= */
 
     .frame-view {
       display: none;
@@ -356,16 +370,15 @@
       display: block;
     }
 
-    .float-home {
+    .float-btn {
       position: fixed;
-      left: 14px;
       bottom: calc(14px + env(safe-area-inset-bottom));
       z-index: 50;
       height: 44px;
       padding: 0 15px;
       border-radius: 999px;
       border: 1px solid rgba(229, 231, 235, 0.96);
-      background: rgba(255,255,255,0.94);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(12px);
       color: #111827;
       font-size: 14px;
@@ -374,28 +387,19 @@
       cursor: pointer;
     }
 
+    .float-home {
+      left: 14px;
+    }
+
     .float-lock {
-      position: fixed;
       right: 14px;
-      bottom: calc(14px + env(safe-area-inset-bottom));
-      z-index: 50;
-      height: 44px;
-      padding: 0 15px;
-      border-radius: 999px;
-      border: 1px solid rgba(229, 231, 235, 0.96);
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(12px);
       color: var(--red);
-      font-size: 14px;
-      font-weight: 900;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
-      cursor: pointer;
       display: none;
     }
 
-    /* ===============================
+    /* =========================
        HỘP MẬT KHẨU
-    =============================== */
+    ========================= */
 
     .lock-layer {
       position: fixed;
@@ -414,7 +418,7 @@
       padding: 23px;
       border-radius: 26px;
       background: #fff;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.32);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
     }
 
     .lock-icon {
@@ -497,8 +501,9 @@
     }
 
     @media (max-width: 760px) {
-      .container {
-        padding-top: 18px;
+      .home-view {
+        padding-left: 14px;
+        padding-right: 14px;
       }
 
       .topbar {
@@ -548,8 +553,7 @@
         grid-template-columns: 1fr;
       }
 
-      .float-home,
-      .float-lock {
+      .float-btn {
         height: 42px;
         padding: 0 13px;
         font-size: 13px;
@@ -559,13 +563,17 @@
 </head>
 
 <body>
-  <!-- MÀN HÌNH CHÍNH -->
+  <!-- TRANG CHỦ -->
   <main id="homeView" class="home-view">
     <div class="container">
       <header class="topbar">
         <div class="brand">
           <div class="logo">
-            <img src="logo-512.png" alt="Logo Tân Hiệp" onerror="this.remove(); this.parentElement.textContent='TH';">
+            <img
+              src="logo-512.png"
+              alt="Logo Tân Hiệp"
+              onerror="this.remove(); this.parentElement.textContent='TH';"
+            />
           </div>
 
           <div class="brand-text">
@@ -593,7 +601,7 @@
       </section>
 
       <section class="quick-grid">
-        <article class="app-card" onclick="moVanBan()">
+        <button class="app-card" type="button" onclick="moVanBan()">
           <div>
             <div class="card-top">
               <div class="card-icon icon-vanban">📄</div>
@@ -603,8 +611,8 @@
             <h3>Dashboard văn bản</h3>
 
             <p>
-              Theo dõi văn bản, hạn xử lý, trạng thái thực hiện và lưu trữ kết quả
-              thực hiện nhiệm vụ.
+              Theo dõi văn bản, hạn xử lý, trạng thái thực hiện và lưu trữ
+              kết quả thực hiện nhiệm vụ.
             </p>
           </div>
 
@@ -612,9 +620,9 @@
             <span>Mở dashboard</span>
             <span>→</span>
           </div>
-        </article>
+        </button>
 
-        <article class="app-card" onclick="yeuCauMatKhauCongLenh()">
+        <button class="app-card" type="button" onclick="yeuCauMatKhauCongLenh()">
           <div>
             <div class="card-top">
               <div class="card-icon icon-conglenh">🚗</div>
@@ -633,7 +641,7 @@
             <span>Mở công lệnh</span>
             <span>→</span>
           </div>
-        </article>
+        </button>
       </section>
 
       <section class="info-grid">
@@ -655,19 +663,20 @@
 
       <div class="footer">
         Trung tâm Bảo trợ xã hội Tân Hiệp
+        <div class="version">Phiên bản giao diện: tan-hiep-mobile-v4</div>
       </div>
     </div>
   </main>
 
   <!-- MÀN HÌNH MỞ ỨNG DỤNG CON -->
   <section id="frameView" class="frame-view">
-    <iframe id="appFrame" src=""></iframe>
+    <iframe id="appFrame" src="about:blank"></iframe>
 
-    <button class="float-home" onclick="veTrangChu()">
+    <button class="float-btn float-home" type="button" onclick="veTrangChu()">
       🏠 Trang chủ
     </button>
 
-    <button id="btnKhoaCongLenh" class="float-lock" onclick="khoaCongLenh()">
+    <button id="btnKhoaCongLenh" class="float-btn float-lock" type="button" onclick="khoaCongLenh()">
       🔒 Khóa
     </button>
   </section>
@@ -696,8 +705,8 @@
       </div>
 
       <div class="lock-actions">
-        <button class="btn-cancel" onclick="dongHopMatKhau()">Hủy</button>
-        <button class="btn-open" onclick="kiemTraMatKhauCongLenh()">Mở</button>
+        <button class="btn-cancel" type="button" onclick="dongHopMatKhau()">Hủy</button>
+        <button class="btn-open" type="button" onclick="kiemTraMatKhauCongLenh()">Mở</button>
       </div>
     </div>
   </div>
@@ -705,16 +714,18 @@
   <script>
     /*
       ==================================================
-      LINK ỨNG DỤNG CỦA ANH
+      CẤU HÌNH ỨNG DỤNG
       ==================================================
     */
+
+    const PHIEN_BAN_GIAO_DIEN = "tan-hiep-mobile-v4";
 
     const LINK_VAN_BAN = "https://thanhbds201-droid.github.io/dashboard-van-ban-tanhiep/";
     const LINK_CONG_LENH = "https://thanhbds201-droid.github.io/CONGLENH_TANHIEP_2026/";
 
     /*
       Đổi mật khẩu tại đây.
-      Lưu ý: đây là khóa giao diện, chưa phải bảo mật tuyệt đối.
+      Lưu ý: đây là khóa giao diện ở GitHub Pages, chưa phải bảo mật tuyệt đối.
     */
     const MAT_KHAU_CONG_LENH = "123456";
 
@@ -802,6 +813,7 @@
       appFrame.src = "about:blank";
       frameView.style.display = "none";
       homeView.style.display = "block";
+      btnKhoaCongLenh.style.display = "none";
       sessionStorage.setItem("tabDangMo", "home");
     }
 
@@ -810,6 +822,7 @@
       appFrame.src = "about:blank";
       frameView.style.display = "none";
       homeView.style.display = "block";
+      btnKhoaCongLenh.style.display = "none";
       alert("Đã khóa lại phần Công lệnh.");
     }
 
@@ -829,8 +842,32 @@
       }
     });
 
+    /*
+      Xóa cache cũ nếu trình duyệt còn giữ bản giao diện trước.
+    */
+    async function lamMoiBoNhoTam() {
+      try {
+        const banDangLuu = localStorage.getItem("phienBanTanHiepMobile");
+
+        if (banDangLuu !== PHIEN_BAN_GIAO_DIEN) {
+          if ("caches" in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map(function(key) {
+              return caches.delete(key);
+            }));
+          }
+
+          localStorage.setItem("phienBanTanHiepMobile", PHIEN_BAN_GIAO_DIEN);
+        }
+      } catch (error) {
+        console.log("Không thể xóa cache cũ:", error);
+      }
+    }
+
+    lamMoiBoNhoTam();
+
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").catch(function(error) {
+      navigator.serviceWorker.register("sw.js?v=" + PHIEN_BAN_GIAO_DIEN).catch(function(error) {
         console.log("Không đăng ký được service worker:", error);
       });
     }
