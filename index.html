@@ -855,270 +855,234 @@
     </div>
   </div>
 
-  <script>
-    const PHIEN_BAN_GIAO_DIEN = "v1";
+ <script>
+  const PHIEN_BAN_GIAO_DIEN = "1.0";
 
-    const LINK_VAN_BAN = "https://thanhbds2011-droid.github.io/dashboard-van-ban-tanhiep/";
-    const LINK_CONG_LENH = "https://thanhbds2011-droid.github.io/CONGLENH_TANHIEP_2026/";
+  const LINK_VAN_BAN = "https://thanhbds2011-droid.github.io/dashboard-van-ban-tanhiep/";
+  const LINK_CONG_LENH = "https://thanhbds2011-droid.github.io/CONGLENH_TANHIEP_2026/";
 
-    const MAT_KHAU_CONG_LENH = "123456";
+  const MAT_KHAU_CONG_LENH = "123456";
 
-    const viewHome = document.getElementById("viewHome");
-    const viewVanBan = document.getElementById("viewVanBan");
-    const viewCongLenh = document.getElementById("viewCongLenh");
+  const viewHome = document.getElementById("viewHome");
+  const viewVanBan = document.getElementById("viewVanBan");
+  const viewCongLenh = document.getElementById("viewCongLenh");
 
-    const navHome = document.getElementById("navHome");
-    const navVanBan = document.getElementById("navVanBan");
-    const navCongLenh = document.getElementById("navCongLenh");
+  const navHome = document.getElementById("navHome");
+  const navVanBan = document.getElementById("navVanBan");
+  const navCongLenh = document.getElementById("navCongLenh");
 
-    const frameVanBan = document.getElementById("frameVanBan");
-    const frameCongLenh = document.getElementById("frameCongLenh");
+  const frameVanBan = document.getElementById("frameVanBan");
+  const frameCongLenh = document.getElementById("frameCongLenh");
 
-    const lockLayer = document.getElementById("lockLayer");
-    const passwordInput = document.getElementById("passwordInput");
-    const errorText = document.getElementById("errorText");
+  const lockLayer = document.getElementById("lockLayer");
+  const passwordInput = document.getElementById("passwordInput");
+  const errorText = document.getElementById("errorText");
 
-    let daTaiVanBan = false;
-    let daTaiCongLenh = false;
-    let daMoKhoaCongLenh = sessionStorage.getItem("moKhoaCongLenh") === "true";
+  let daTaiVanBan = false;
+  let daTaiCongLenh = false;
+  let daMoKhoaCongLenh = sessionStorage.getItem("moKhoaCongLenh") === "true";
 
-    function linkKhongCache(link) {
-      const dau = link.includes("?") ? "&" : "?";
-      return link + dau + "openFrom=tan-hiep-mobile&t=" + Date.now();
+  function linkKhongCache(link) {
+    const dau = link.includes("?") ? "&" : "?";
+    return link + dau + "openFrom=tan-hiep-mobile&t=" + Date.now();
+  }
+
+  function anTatCaView() {
+    viewHome.classList.remove("active");
+    viewVanBan.classList.remove("active");
+    viewCongLenh.classList.remove("active");
+
+    navHome.classList.remove("active");
+    navVanBan.classList.remove("active");
+    navCongLenh.classList.remove("active");
+  }
+
+  function moTab(tab) {
+    anTatCaView();
+
+    if (tab === "home") {
+      viewHome.classList.add("active");
+      navHome.classList.add("active");
+      return;
     }
 
-    function anTatCaView() {
-      viewHome.classList.remove("active");
-      viewVanBan.classList.remove("active");
-      viewCongLenh.classList.remove("active");
+    if (tab === "vanban") {
+      if (!daTaiVanBan) {
+        frameVanBan.src = linkKhongCache(LINK_VAN_BAN);
+        daTaiVanBan = true;
+      }
 
-      navHome.classList.remove("active");
-      navVanBan.classList.remove("active");
-      navCongLenh.classList.remove("active");
+      viewVanBan.classList.add("active");
+      navVanBan.classList.add("active");
+      return;
     }
 
-    function moTab(tab) {
-      anTatCaView();
-
-      if (tab === "home") {
+    if (tab === "conglenh") {
+      if (!daMoKhoaCongLenh) {
         viewHome.classList.add("active");
         navHome.classList.add("active");
+        yeuCauMatKhauCongLenh();
         return;
       }
 
-      if (tab === "vanban") {
-        if (!daTaiVanBan) {
-          frameVanBan.src = linkKhongCache(LINK_VAN_BAN);
-          daTaiVanBan = true;
-        }
-
-        viewVanBan.classList.add("active");
-        navVanBan.classList.add("active");
-        return;
+      if (!daTaiCongLenh) {
+        frameCongLenh.src = linkKhongCache(LINK_CONG_LENH);
+        daTaiCongLenh = true;
       }
 
-      if (tab === "conglenh") {
-        if (!daMoKhoaCongLenh) {
-          viewHome.classList.add("active");
-          navHome.classList.add("active");
-          yeuCauMatKhauCongLenh();
-          return;
-        }
-
-        if (!daTaiCongLenh) {
-          frameCongLenh.src = linkKhongCache(LINK_CONG_LENH);
-          daTaiCongLenh = true;
-        }
-
-        viewCongLenh.classList.add("active");
-        navCongLenh.classList.add("active");
-      }
+      viewCongLenh.classList.add("active");
+      navCongLenh.classList.add("active");
     }
+  }
 
-    function yeuCauMatKhauCongLenh() {
-      if (daMoKhoaCongLenh) {
-        moTab("conglenh");
-        return;
-      }
-
-      passwordInput.value = "";
-      errorText.style.display = "none";
-      lockLayer.style.display = "flex";
-
-      setTimeout(function() {
-        passwordInput.focus();
-      }, 120);
-    }
-
-    function kiemTraMatKhauCongLenh() {
-      const matKhauNhap = passwordInput.value.trim();
-
-      if (matKhauNhap !== MAT_KHAU_CONG_LENH) {
-        errorText.style.display = "block";
-        passwordInput.focus();
-        return;
-      }
-
-      daMoKhoaCongLenh = true;
-      sessionStorage.setItem("moKhoaCongLenh", "true");
-      dongHopMatKhau();
+  function yeuCauMatKhauCongLenh() {
+    if (daMoKhoaCongLenh) {
       moTab("conglenh");
-    }
-
-    function dongHopMatKhau() {
-      lockLayer.style.display = "none";
-      passwordInput.value = "";
-      errorText.style.display = "none";
-    }
-
-    passwordInput.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        kiemTraMatKhauCongLenh();
-      }
-
-      if (event.key === "Escape") {
-        dongHopMatKhau();
-      }
-    });
-
-    lockLayer.addEventListener("click", function(event) {
-      if (event.target === lockLayer) {
-        dongHopMatKhau();
-      }
-    });
-
-    async function lamMoiBoNhoTam() {
-      try {
-        const banDangLuu = localStorage.getItem("phienBanTanHiepMobile");
-
-        if (banDangLuu !== PHIEN_BAN_GIAO_DIEN) {
-          if ("caches" in window) {
-            const keys = await caches.keys();
-            await Promise.all(keys.map(function(key) {
-              return caches.delete(key);
-            }));
-          }
-
-          localStorage.setItem("phienBanTanHiepMobile", PHIEN_BAN_GIAO_DIEN);
-        }
-      } catch (error) {
-        console.log("Không thể xóa cache cũ:", error);
-      }
-    }
-
-    lamMoiBoNhoTam();
-const updateLayer = document.getElementById("updateLayer");
-const updateTitle = document.getElementById("updateTitle");
-const updateMessage = document.getElementById("updateMessage");
-
-let phienBanMoiNhat = null;
-
-async function kiemTraBanCapNhat() {
-  try {
-    const response = await fetch("version.json?t=" + Date.now(), {
-      cache: "no-store"
-    });
-
-    if (!response.ok) {
       return;
     }
 
-    const data = await response.json();
+    passwordInput.value = "";
+    errorText.style.display = "none";
+    lockLayer.style.display = "flex";
 
-    if (!data || !data.version) {
+    setTimeout(function() {
+      passwordInput.focus();
+    }, 120);
+  }
+
+  function kiemTraMatKhauCongLenh() {
+    const matKhauNhap = passwordInput.value.trim();
+
+    if (matKhauNhap !== MAT_KHAU_CONG_LENH) {
+      errorText.style.display = "block";
+      passwordInput.focus();
       return;
     }
 
-    phienBanMoiNhat = data.version;
-
-    const phienBanDaLuu = localStorage.getItem("phienBanTanHiepMobile");
-
-    if (!phienBanDaLuu) {
-      localStorage.setItem("phienBanTanHiepMobile", data.version);
-      return;
-    }
-
-    if (phienBanDaLuu !== data.version) {
-      if (updateTitle && data.title) {
-        updateTitle.textContent = data.title;
-      }
-
-      if (updateMessage && data.message) {
-        updateMessage.textContent = data.message;
-      }
-
-      if (updateLayer) {
-        updateLayer.style.display = "flex";
-      }
-    }
-  } catch (error) {
-    console.log("Không kiểm tra được bản cập nhật:", error);
+    daMoKhoaCongLenh = true;
+    sessionStorage.setItem("moKhoaCongLenh", "true");
+    dongHopMatKhau();
+    moTab("conglenh");
   }
-}
 
-function dongThongBaoCapNhat() {
-  if (updateLayer) {
-    updateLayer.style.display = "none";
+  function dongHopMatKhau() {
+    lockLayer.style.display = "none";
+    passwordInput.value = "";
+    errorText.style.display = "none";
   }
-}
 
-async function capNhatUngDung() {
-  try {
-    if ("caches" in window) {
-      const keys = await caches.keys();
-      await Promise.all(
-        keys.map(function(key) {
-          return caches.delete(key);
-        })
-      );
+  passwordInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      kiemTraMatKhauCongLenh();
     }
 
-    if ("serviceWorker" in navigator) {
-      const registrations = await navigator.serviceWorker.getRegistrations();
-
-      await Promise.all(
-        registrations.map(function(registration) {
-          return registration.unregister();
-        })
-      );
+    if (event.key === "Escape") {
+      dongHopMatKhau();
     }
+  });
 
-    if (phienBanMoiNhat) {
-      localStorage.setItem("phienBanTanHiepMobile", phienBanMoiNhat);
+  lockLayer.addEventListener("click", function(event) {
+    if (event.target === lockLayer) {
+      dongHopMatKhau();
     }
+  });
 
-    const url = new URL(window.location.href);
-    url.searchParams.set("v", Date.now());
+  /*
+    KIỂM TRA BẢN CẬP NHẬT
+    Phần này không làm ảnh hưởng nút tab nếu version.json bị lỗi.
+  */
 
-    window.location.replace(url.toString());
-  } catch (error) {
-    console.log("Lỗi khi cập nhật ứng dụng:", error);
-    window.location.reload();
-  }
-}
-
-kiemTraBanCapNhat();
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js?v=" + PHIEN_BAN_GIAO_DIEN).catch(function(error) {
-        console.log("Không đăng ký được service worker:", error);
+  async function kiemTraBanCapNhat() {
+    try {
+      const response = await fetch("version.json?t=" + Date.now(), {
+        cache: "no-store"
       });
+
+      if (!response.ok) {
+        return;
+      }
+
+      const data = await response.json();
+
+      if (!data || !data.version) {
+        return;
+      }
+
+      const phienBanDaLuu = localStorage.getItem("phienBanTanHiepMobile");
+
+      if (!phienBanDaLuu) {
+        localStorage.setItem("phienBanTanHiepMobile", data.version);
+        return;
+      }
+
+      if (phienBanDaLuu !== data.version) {
+        const hoiCapNhat = confirm(
+          (data.title || "Có bản cập nhật mới") +
+          "\n\n" +
+          (data.message || "Vui lòng cập nhật để sử dụng phiên bản mới nhất.")
+        );
+
+        if (hoiCapNhat) {
+          await capNhatUngDung(data.version);
+        }
+      }
+    } catch (error) {
+      console.log("Không kiểm tra được bản cập nhật:", error);
     }
-    <div id="updateLayer" class="update-layer">
-  <div class="update-box">
-    <div class="update-icon">⬆️</div>
+  }
 
-    <h2 id="updateTitle">Có bản cập nhật mới</h2>
+  async function capNhatUngDung(versionMoi) {
+    try {
+      if ("caches" in window) {
+        const keys = await caches.keys();
+        await Promise.all(
+          keys.map(function(key) {
+            return caches.delete(key);
+          })
+        );
+      }
 
-    <p id="updateMessage">
-      Ứng dụng Tân Hiệp vừa có phiên bản mới. Vui lòng cập nhật để sử dụng ổn định hơn.
-    </p>
+      if ("serviceWorker" in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
 
-    <div class="update-actions">
-      <button class="btn-later" type="button" onclick="dongThongBaoCapNhat()">Để sau</button>
-      <button class="btn-update" type="button" onclick="capNhatUngDung()">Cập nhật ngay</button>
-    </div>
-  </div>
-</div>
-  </script>
+        await Promise.all(
+          registrations.map(function(registration) {
+            return registration.unregister();
+          })
+        );
+      }
+
+      localStorage.setItem("phienBanTanHiepMobile", versionMoi || Date.now());
+
+      const url = new URL(window.location.href);
+      url.searchParams.set("v", Date.now());
+      window.location.replace(url.toString());
+    } catch (error) {
+      console.log("Lỗi cập nhật:", error);
+      window.location.reload();
+    }
+  }
+
+  async function lamMoiBoNhoTam() {
+    try {
+      const banDangLuu = localStorage.getItem("phienBanTanHiepMobile");
+
+      if (!banDangLuu) {
+        localStorage.setItem("phienBanTanHiepMobile", PHIEN_BAN_GIAO_DIEN);
+      }
+    } catch (error) {
+      console.log("Không thể xử lý bộ nhớ tạm:", error);
+    }
+  }
+
+  lamMoiBoNhoTam();
+  kiemTraBanCapNhat();
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js?v=" + PHIEN_BAN_GIAO_DIEN).catch(function(error) {
+      console.log("Không đăng ký được service worker:", error);
+    });
+  }
+</script>
 </body>
 </html>
