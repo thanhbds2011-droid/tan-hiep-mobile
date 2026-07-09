@@ -1,4 +1,4 @@
-const CACHE_NAME = "tan-hiep-mobile-no-cache-v1";
+const CACHE_NAME = "tan-hiep-mobile-clean-v2";
 
 self.addEventListener("install", function(event) {
   self.skipWaiting();
@@ -20,8 +20,8 @@ self.addEventListener("activate", function(event) {
 
 self.addEventListener("fetch", function(event) {
   event.respondWith(
-    fetch(event.request).catch(function() {
-      return caches.match(event.request);
+    fetch(event.request, { cache: "no-store" }).catch(function() {
+      return fetch(event.request);
     })
   );
 });
