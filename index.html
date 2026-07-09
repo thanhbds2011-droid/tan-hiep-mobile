@@ -567,7 +567,81 @@
       background: var(--red);
       color: #fff;
     }
+/* THÔNG BÁO CẬP NHẬT */
+.update-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(17, 24, 39, 0.64);
+}
 
+.update-box {
+  width: 100%;
+  max-width: 380px;
+  padding: 22px;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+}
+
+.update-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 19px;
+  margin: 0 auto 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 28px;
+}
+
+.update-box h2 {
+  margin: 0 0 8px;
+  text-align: center;
+  color: #111827;
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
+.update-box p {
+  margin: 0 0 16px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.update-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.update-actions button {
+  flex: 1;
+  height: 44px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.btn-later {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-update {
+  background: #991b1b;
+  color: #fff;
+}
     @media (min-width: 768px) {
       .app-header {
         padding-left: 24px;
@@ -782,7 +856,7 @@
   </div>
 
   <script>
-    const PHIEN_BAN_GIAO_DIEN = "tan-hiep-mobile-v11-compact";
+    const PHIEN_BAN_GIAO_DIEN = "2026.07.09.01";
 
     const LINK_VAN_BAN = "https://thanhbds2011-droid.github.io/dashboard-van-ban-tanhiep/";
     const LINK_CONG_LENH = "https://thanhbds2011-droid.github.io/CONGLENH_TANHIEP_2026/";
@@ -933,12 +1007,118 @@
     }
 
     lamMoiBoNhoTam();
+const updateLayer = document.getElementById("updateLayer");
+const updateTitle = document.getElementById("updateTitle");
+const updateMessage = document.getElementById("updateMessage");
 
+let phienBanMoiNhat = null;
+
+async function kiemTraBanCapNhat() {
+  try {
+    const response = await fetch("version.json?t=" + Date.now(), {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+
+    if (!data || !data.version) {
+      return;
+    }
+
+    phienBanMoiNhat = data.version;
+
+    const phienBanDaLuu = localStorage.getItem("phienBanTanHiepMobile");
+
+    if (!phienBanDaLuu) {
+      localStorage.setItem("phienBanTanHiepMobile", data.version);
+      return;
+    }
+
+    if (phienBanDaLuu !== data.version) {
+      if (updateTitle && data.title) {
+        updateTitle.textContent = data.title;
+      }
+
+      if (updateMessage && data.message) {
+        updateMessage.textContent = data.message;
+      }
+
+      if (updateLayer) {
+        updateLayer.style.display = "flex";
+      }
+    }
+  } catch (error) {
+    console.log("Không kiểm tra được bản cập nhật:", error);
+  }
+}
+
+function dongThongBaoCapNhat() {
+  if (updateLayer) {
+    updateLayer.style.display = "none";
+  }
+}
+
+async function capNhatUngDung() {
+  try {
+    if ("caches" in window) {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys.map(function(key) {
+          return caches.delete(key);
+        })
+      );
+    }
+
+    if ("serviceWorker" in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+
+      await Promise.all(
+        registrations.map(function(registration) {
+          return registration.unregister();
+        })
+      );
+    }
+
+    if (phienBanMoiNhat) {
+      localStorage.setItem("phienBanTanHiepMobile", phienBanMoiNhat);
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("v", Date.now());
+
+    window.location.replace(url.toString());
+  } catch (error) {
+    console.log("Lỗi khi cập nhật ứng dụng:", error);
+    window.location.reload();
+  }
+}
+
+kiemTraBanCapNhat();
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js?v=" + PHIEN_BAN_GIAO_DIEN).catch(function(error) {
         console.log("Không đăng ký được service worker:", error);
       });
     }
+    <div id="updateLayer" class="update-layer">
+  <div class="update-box">
+    <div class="update-icon">⬆️</div>
+
+    <h2 id="updateTitle">Có bản cập nhật mới</h2>
+
+    <p id="updateMessage">
+      Ứng dụng Tân Hiệp vừa có phiên bản mới. Vui lòng cập nhật để sử dụng ổn định hơn.
+    </p>
+
+    <div class="update-actions">
+      <button class="btn-later" type="button" onclick="dongThongBaoCapNhat()">Để sau</button>
+      <button class="btn-update" type="button" onclick="capNhatUngDung()">Cập nhật ngay</button>
+    </div>
+  </div>
+</div>
   </script>
 </body>
 </html>
