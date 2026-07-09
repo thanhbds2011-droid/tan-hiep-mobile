@@ -1,4 +1,4 @@
-const CACHE_NAME = "tan-hiep-mobile-v1";
+const CACHE_NAME = "tan-hiep-mobile-v4";
 
 self.addEventListener("install", function(event) {
   self.skipWaiting();
@@ -9,9 +9,7 @@ self.addEventListener("activate", function(event) {
     caches.keys().then(function(keys) {
       return Promise.all(
         keys.map(function(key) {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
+          return caches.delete(key);
         })
       );
     })
