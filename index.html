@@ -2,87 +2,387 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <title>TRUNG TÂM BẢO TRỢ XÃ HỘI TÂN HIỆP</title>
+  <title>Ứng dụng Tân Hiệp</title>
 
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#b91c1c">
+  <meta name="theme-color" content="#991b1b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Tân Hiệp">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <style>
     * {
       box-sizing: border-box;
     }
 
+    :root {
+      --red: #991b1b;
+      --red-2: #b91c1c;
+      --blue: #1d4ed8;
+      --green: #047857;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      --radius: 22px;
+    }
+
     html, body {
+      width: 100%;
+      height: 100%;
       margin: 0;
       padding: 0;
-      height: 100%;
       font-family: Arial, sans-serif;
-      background: #f3f4f6;
-      color: #111827;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
       overflow: hidden;
     }
 
-    .app-header {
-      height: 56px;
-      background: #b91c1c;
-      color: #fff;
+    /* =========================
+       MÀN HÌNH TRANG CHỦ
+    ========================= */
+
+    .home-view {
+      width: 100%;
+      height: 100vh;
+      overflow-y: auto;
+      background:
+        radial-gradient(circle at top left, rgba(248, 113, 113, 0.20), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 30%),
+        linear-gradient(180deg, #fff7f7 0%, #f3f4f6 55%, #eef2ff 100%);
+      padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+    }
+
+    .home-container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 26px 0 32px;
+    }
+
+    .top-brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 8px 24px rgba(153, 27, 27, 0.18);
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-title {
+      min-width: 0;
+    }
+
+    .brand-title h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+      color: var(--red);
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-title p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .status-pill {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-size: 13px;
       font-weight: 700;
-      font-size: 17px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-      position: relative;
-      z-index: 20;
-    }
-
-    .tabs {
-      height: 58px;
-      display: flex;
-      gap: 8px;
-      padding: 8px;
-      background: #fff;
-      border-bottom: 1px solid #e5e7eb;
-      position: relative;
-      z-index: 20;
-    }
-
-    .tab-btn {
-      flex: 1;
-      border: 0;
-      border-radius: 12px;
-      background: #f3f4f6;
       color: #374151;
-      font-size: 15px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+      white-space: nowrap;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--red) 0%, #7f1d1d 48%, #111827 100%);
+      color: white;
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.10);
+      right: -70px;
+      top: -80px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
       font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.2;
+      letter-spacing: -0.4px;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .app-card {
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
       cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .tab-btn.active {
-      background: #b91c1c;
-      color: #fff;
+    .app-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.13);
+      border-color: rgba(153, 27, 27, 0.28);
     }
 
-    .frame-wrap {
-      height: calc(100vh - 114px);
-      background: #fff;
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
     }
 
-    iframe {
+    .card-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+      flex: 0 0 auto;
+    }
+
+    .icon-doc {
+      background: #eff6ff;
+      color: var(--blue);
+    }
+
+    .icon-car {
+      background: #fff7ed;
+      color: #c2410c;
+    }
+
+    .card-badge {
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge-public {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .badge-lock {
+      background: #fef2f2;
+      color: var(--red);
+    }
+
+    .app-card h3 {
+      margin: 18px 0 8px;
+      font-size: 21px;
+      letter-spacing: -0.2px;
+      color: #111827;
+    }
+
+    .app-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .card-action {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .info-row {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      color: #374151;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #111827;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    /* =========================
+       MÀN HÌNH IFRAME FULL
+    ========================= */
+
+    .frame-view {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .frame-view iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
-      background: #fff;
+      background: white;
     }
+
+    .floating-home {
+      position: fixed;
+      left: 14px;
+      bottom: calc(14px + env(safe-area-inset-bottom));
+      z-index: 50;
+      height: 44px;
+      padding: 0 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      color: #111827;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+      cursor: pointer;
+    }
+
+    .floating-lock {
+      position: fixed;
+      right: 14px;
+      bottom: calc(14px + env(safe-area-inset-bottom));
+      z-index: 50;
+      height: 44px;
+      padding: 0 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(229, 231, 235, 0.95);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+      cursor: pointer;
+      display: none;
+    }
+
+    /* =========================
+       KHÓA MẬT KHẨU
+    ========================= */
 
     .lock-layer {
       position: fixed;
       inset: 0;
-      background: rgba(17, 24, 39, 0.58);
+      background: rgba(17, 24, 39, 0.62);
       display: none;
       align-items: center;
       justify-content: center;
@@ -92,17 +392,30 @@
 
     .lock-box {
       width: 100%;
-      max-width: 360px;
+      max-width: 380px;
       background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 22px 55px rgba(0,0,0,0.30);
+    }
+
+    .lock-icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 12px;
       border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+      background: #fef2f2;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
     }
 
     .lock-title {
       margin: 0 0 8px;
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 800;
       color: #111827;
       text-align: center;
     }
@@ -112,118 +425,238 @@
       font-size: 14px;
       color: #6b7280;
       text-align: center;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     .password-input {
       width: 100%;
-      height: 46px;
+      height: 48px;
       border: 1px solid #d1d5db;
-      border-radius: 12px;
-      padding: 0 12px;
+      border-radius: 14px;
+      padding: 0 13px;
       font-size: 16px;
       outline: none;
     }
 
     .password-input:focus {
-      border-color: #b91c1c;
-      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12);
-    }
-
-    .lock-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .lock-actions button {
-      flex: 1;
-      height: 42px;
-      border: 0;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .btn-cancel {
-      background: #e5e7eb;
-      color: #374151;
-    }
-
-    .btn-open {
-      background: #b91c1c;
-      color: #fff;
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.12);
     }
 
     .error-text {
       display: none;
       margin-top: 10px;
       font-size: 13px;
-      color: #b91c1c;
+      color: var(--red);
       text-align: center;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .footer-hint {
-      position: fixed;
-      bottom: 8px;
-      left: 10px;
-      right: 10px;
-      z-index: 10;
-      display: none;
-      text-align: center;
-      font-size: 12px;
-      color: #6b7280;
-      pointer-events: none;
+    .lock-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
     }
 
-    @media (max-width: 480px) {
-      .app-header {
-        height: 54px;
-        font-size: 16px;
+    .lock-actions button {
+      flex: 1;
+      height: 44px;
+      border: 0;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-cancel {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .btn-open {
+      background: var(--red);
+      color: #fff;
+    }
+
+    @media (max-width: 760px) {
+      .home-container {
+        padding-top: 18px;
       }
 
-      .tabs {
-        height: 56px;
-        padding: 7px;
+      .top-brand {
+        align-items: flex-start;
       }
 
-      .tab-btn {
-        font-size: 14px;
+      .brand-logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
       }
 
-      .frame-wrap {
-        height: calc(100vh - 110px);
+      .brand-title h1 {
+        font-size: 20px;
+      }
+
+      .status-pill {
+        display: none;
+      }
+
+      .hero {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .hero h2 {
+        font-size: 24px;
+      }
+
+      .app-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .app-card {
+        min-height: 190px;
+      }
+
+      .info-row {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-home,
+      .floating-lock {
+        height: 42px;
+        font-size: 13px;
+        padding: 0 13px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="app-header">
-    TRUNG TÂM BẢO TRỢ XÃ HỘI TÂN HIỆP
-  </div>
+  <!-- MÀN HÌNH CHÍNH -->
+  <main id="homeView" class="home-view">
+    <div class="home-container">
+      <section class="top-brand">
+        <div class="brand-left">
+          <div class="brand-logo">
+            <img src="logo-512.png" alt="Logo Tân Hiệp" onerror="this.style.display='none'; this.parentElement.innerHTML='TH';">
+          </div>
 
-  <div class="tabs">
-    <button id="btnVanBan" class="tab-btn active" onclick="moVanBan()">
-      📄 Văn bản
-    </button>
+          <div class="brand-title">
+            <h1>Ứng dụng Tân Hiệp</h1>
+            <p>Cổng truy cập nhanh các hệ thống nội bộ</p>
+          </div>
+        </div>
 
-    <button id="btnCongLenh" class="tab-btn" onclick="yeuCauMatKhauCongLenh()">
-      🚗 Công lệnh
-    </button>
-  </div>
+        <div class="status-pill">
+          ● Đang hoạt động
+        </div>
+      </section>
 
-  <div class="frame-wrap">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-kicker">
+            🧩 Chuyển đổi số hành chính
+          </div>
+
+          <h2>Trung tâm Bảo trợ xã hội Tân Hiệp</h2>
+
+          <p>
+            Tập trung các tiện ích phục vụ theo dõi văn bản, quản lý công lệnh
+            và hỗ trợ xử lý công việc trên điện thoại, máy tính bảng, laptop.
+          </p>
+        </div>
+      </section>
+
+      <section class="app-grid">
+        <article class="app-card" onclick="moVanBan()">
+          <div>
+            <div class="card-top">
+              <div class="card-icon icon-doc">📄</div>
+              <div class="card-badge badge-public">Công khai</div>
+            </div>
+
+            <h3>Dashboard văn bản</h3>
+
+            <p>
+              Theo dõi văn bản, hạn xử lý, trạng thái thực hiện và lưu trữ kết quả
+              thực hiện nhiệm vụ.
+            </p>
+          </div>
+
+          <div class="card-action">
+            <span>Mở dashboard</span>
+            <span>→</span>
+          </div>
+        </article>
+
+        <article class="app-card" onclick="yeuCauMatKhauCongLenh()">
+          <div>
+            <div class="card-top">
+              <div class="card-icon icon-car">🚗</div>
+              <div class="card-badge badge-lock">Có mật khẩu</div>
+            </div>
+
+            <h3>Quản lý công lệnh</h3>
+
+            <p>
+              Cấp số, tra cứu, in và quản lý công lệnh. Chỉ người được phân quyền
+              mới được truy cập.
+            </p>
+          </div>
+
+          <div class="card-action">
+            <span>Mở công lệnh</span>
+            <span>→</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="info-row">
+        <div class="info-box">
+          <strong>📱 Một biểu tượng</strong>
+          Chỉ cần cài một ứng dụng Tân Hiệp ngoài màn hình chính.
+        </div>
+
+        <div class="info-box">
+          <strong>🔐 Tách quyền truy cập</strong>
+          Văn bản xem nhanh, Công lệnh có lớp khóa riêng.
+        </div>
+
+        <div class="info-box">
+          <strong>⚙️ Không ảnh hưởng app cũ</strong>
+          Hai hệ thống gốc vẫn giữ nguyên, app này chỉ là cổng tổng hợp.
+        </div>
+      </section>
+
+      <div class="footer">
+        Trung tâm Bảo trợ xã hội Tân Hiệp
+      </div>
+    </div>
+  </main>
+
+  <!-- MÀN HÌNH MỞ ỨNG DỤNG CON -->
+  <section id="frameView" class="frame-view">
     <iframe id="appFrame" src=""></iframe>
-  </div>
 
+    <button class="floating-home" onclick="veTrangChu()">
+      🏠 Trang chủ
+    </button>
+
+    <button id="btnKhoaCongLenh" class="floating-lock" onclick="khoaCongLenh()">
+      🔒 Khóa
+    </button>
+  </section>
+
+  <!-- HỘP NHẬP MẬT KHẨU -->
   <div id="lockLayer" class="lock-layer">
     <div class="lock-box">
-      <h2 class="lock-title">Khóa Công lệnh</h2>
+      <div class="lock-icon">🔐</div>
+
+      <h2 class="lock-title">Xác thực Công lệnh</h2>
+
       <p class="lock-note">
-        Vui lòng nhập mật khẩu để vào phần Công lệnh.
+        Vui lòng nhập mật khẩu để truy cập hệ thống Quản lý công lệnh.
       </p>
 
       <input
@@ -239,7 +672,7 @@
       </div>
 
       <div class="lock-actions">
-        <button class="btn-cancel" onclick="dongKhoaCongLenh()">Hủy</button>
+        <button class="btn-cancel" onclick="dongHopMatKhau()">Hủy</button>
         <button class="btn-open" onclick="kiemTraMatKhauCongLenh()">Mở</button>
       </div>
     </div>
@@ -247,38 +680,54 @@
 
   <script>
     /*
-      ============================
-      PHẦN ANH CẦN SỬA
-      ============================
-
-      1. Đổi TEN_TAI_KHOAN_GITHUB thành tên GitHub thật.
-      2. Đổi mật khẩu 123456 thành mật khẩu riêng.
-      3. Không sửa các phần bên dưới nếu chưa cần.
+      ==================================================
+      ANH SỬA 3 DÒNG DƯỚI ĐÂY
+      ==================================================
     */
 
     const LINK_VAN_BAN = "https://thanhbds2011-droid.github.io/dashboard-van-ban-tanhiep/";
-    const LINK_CONG_LENH = "https://thanhbds2011-droid.github.io/CONGLENH_TANHIEP_2026/";
+    const LINK_CONG_LENH = "https://thanhbds2011-droid.github.io/cong-lenh-tan-hiep2026/";
 
     const MAT_KHAU_CONG_LENH = "123456";
 
-    const frame = document.getElementById("appFrame");
-    const btnVanBan = document.getElementById("btnVanBan");
-    const btnCongLenh = document.getElementById("btnCongLenh");
+    /*
+      ==================================================
+      KHÔNG CẦN SỬA PHẦN DƯỚI
+      ==================================================
+    */
+
+    const homeView = document.getElementById("homeView");
+    const frameView = document.getElementById("frameView");
+    const appFrame = document.getElementById("appFrame");
+
     const lockLayer = document.getElementById("lockLayer");
     const passwordInput = document.getElementById("passwordInput");
     const errorText = document.getElementById("errorText");
+    const btnKhoaCongLenh = document.getElementById("btnKhoaCongLenh");
+
+    function moFrame(link, loai) {
+      appFrame.src = link;
+
+      homeView.style.display = "none";
+      frameView.style.display = "block";
+
+      if (loai === "conglenh") {
+        btnKhoaCongLenh.style.display = "inline-flex";
+      } else {
+        btnKhoaCongLenh.style.display = "none";
+      }
+
+      sessionStorage.setItem("tabDangMo", loai);
+    }
 
     function moVanBan() {
-      frame.src = LINK_VAN_BAN;
-      btnVanBan.classList.add("active");
-      btnCongLenh.classList.remove("active");
-      sessionStorage.setItem("tabDangMo", "vanban");
+      moFrame(LINK_VAN_BAN, "vanban");
     }
 
     function yeuCauMatKhauCongLenh() {
-      const daMoKhoaTrongPhien = sessionStorage.getItem("moKhoaCongLenh") === "true";
+      const daMoKhoa = sessionStorage.getItem("moKhoaCongLenh") === "true";
 
-      if (daMoKhoaTrongPhien) {
+      if (daMoKhoa) {
         moCongLenh();
         return;
       }
@@ -292,12 +741,6 @@
       }, 100);
     }
 
-    function dongKhoaCongLenh() {
-      lockLayer.style.display = "none";
-      passwordInput.value = "";
-      errorText.style.display = "none";
-    }
-
     function kiemTraMatKhauCongLenh() {
       const matKhauNhap = passwordInput.value.trim();
 
@@ -308,15 +751,33 @@
       }
 
       sessionStorage.setItem("moKhoaCongLenh", "true");
-      dongKhoaCongLenh();
+      dongHopMatKhau();
       moCongLenh();
     }
 
     function moCongLenh() {
-      frame.src = LINK_CONG_LENH;
-      btnCongLenh.classList.add("active");
-      btnVanBan.classList.remove("active");
-      sessionStorage.setItem("tabDangMo", "conglenh");
+      moFrame(LINK_CONG_LENH, "conglenh");
+    }
+
+    function dongHopMatKhau() {
+      lockLayer.style.display = "none";
+      passwordInput.value = "";
+      errorText.style.display = "none";
+    }
+
+    function veTrangChu() {
+      appFrame.src = "";
+      frameView.style.display = "none";
+      homeView.style.display = "block";
+      sessionStorage.setItem("tabDangMo", "home");
+    }
+
+    function khoaCongLenh() {
+      sessionStorage.removeItem("moKhoaCongLenh");
+      appFrame.src = "";
+      frameView.style.display = "none";
+      homeView.style.display = "block";
+      alert("Đã khóa lại phần Công lệnh.");
     }
 
     passwordInput.addEventListener("keydown", function(event) {
@@ -325,14 +786,16 @@
       }
 
       if (event.key === "Escape") {
-        dongKhoaCongLenh();
+        dongHopMatKhau();
       }
     });
 
-    // Khi mở app, mặc định vào Dashboard văn bản.
-    moVanBan();
+    lockLayer.addEventListener("click", function(event) {
+      if (event.target === lockLayer) {
+        dongHopMatKhau();
+      }
+    });
 
-    // Đăng ký PWA.
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(function(error) {
         console.log("Không đăng ký được service worker:", error);
