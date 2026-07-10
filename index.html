@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
- 
+
   <title>Tân Hiệp</title>
 
   <link rel="manifest" href="manifest.webmanifest" />
@@ -29,10 +29,11 @@
       --blue: #2563eb;
       --green: #047857;
       --orange: #ea580c;
+      --purple: #7c3aed;
       --bg: #f8fafc;
       --white: #ffffff;
       --shadow: 0 16px 38px rgba(15, 23, 42, 0.12);
-      --bottom-nav-height: 76px;
+      --bottom-nav-height: 78px;
     }
 
     html,
@@ -69,10 +70,6 @@
         linear-gradient(180deg, #fff7f7 0%, #f8fafc 50%, #eef2ff 100%);
       overflow: hidden;
     }
-
-    /* =========================
-       HEADER
-    ========================= */
 
     .app-header {
       padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
@@ -150,10 +147,6 @@
       white-space: nowrap;
       flex: 0 0 auto;
     }
-
-    /* =========================
-       CONTENT
-    ========================= */
 
     .content {
       flex: 1;
@@ -329,6 +322,11 @@
       color: var(--orange);
     }
 
+    .app-icon.party {
+      background: #fef2f2;
+      color: var(--red);
+    }
+
     .app-content {
       flex: 1;
       min-width: 0;
@@ -368,6 +366,11 @@
     }
 
     .badge.lock {
+      background: #fef2f2;
+      color: var(--red);
+    }
+
+    .badge.internal {
       background: #fef2f2;
       color: var(--red);
     }
@@ -425,6 +428,12 @@
       border-color: #bbf7d0;
     }
 
+    .mini-tags .tag-purple {
+      background: #f5f3ff;
+      color: #6d28d9;
+      border-color: #ddd6fe;
+    }
+
     .app-action {
       margin-top: 12px;
       display: flex;
@@ -449,10 +458,6 @@
       color: #a7afbd;
       font-size: 10px;
     }
-
-    /* =========================
-       IFRAME VIEW
-    ========================= */
 
     .frame-wrap {
       width: 100%;
@@ -485,10 +490,6 @@
       background: #fff;
     }
 
-    /* =========================
-       BOTTOM TAB
-    ========================= */
-
     .bottom-nav {
       position: fixed;
       left: 0;
@@ -496,33 +497,34 @@
       bottom: 0;
       z-index: 50;
       height: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
-      padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
       background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-top: 1px solid rgba(229, 231, 235, 0.95);
       box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.08);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
     }
 
     .nav-btn {
       height: 100%;
-      border-radius: 18px;
+      border-radius: 16px;
       background: transparent;
       color: #6b7280;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       gap: 4px;
+      min-width: 0;
     }
 
     .nav-btn .nav-icon {
-      font-size: 21px;
+      font-size: 20px;
       line-height: 1;
     }
 
@@ -535,9 +537,9 @@
       color: var(--orange);
     }
 
-    /* =========================
-       PASSWORD MODAL
-    ========================= */
+    .nav-btn.party {
+      color: var(--red);
+    }
 
     .lock-layer {
       position: fixed;
@@ -659,10 +661,6 @@
       color: #fff;
     }
 
-    /* =========================
-       UPDATE MODAL
-    ========================= */
-
     .update-layer {
       position: fixed;
       inset: 0;
@@ -738,10 +736,6 @@
       color: #fff;
     }
 
-    /* =========================
-       TABLET
-    ========================= */
-
     @media (min-width: 768px) and (max-width: 1023px) {
       .app-header {
         padding-left: 24px;
@@ -765,18 +759,13 @@
       }
 
       .app-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: 18px;
       }
 
       .app-card {
-        display: block;
-        min-height: 235px;
+        min-height: 180px;
         padding: 23px;
-      }
-
-      .app-icon {
-        margin-bottom: 18px;
       }
 
       .app-card h3 {
@@ -787,11 +776,11 @@
         left: 50%;
         right: auto;
         bottom: 18px;
-        width: min(460px, calc(100% - 32px));
+        width: min(560px, calc(100% - 32px));
         transform: translateX(-50%);
         border-radius: 26px;
         border: 1px solid rgba(229, 231, 235, 0.95);
-        height: 74px;
+        height: 76px;
         padding: 8px;
       }
 
@@ -799,10 +788,6 @@
         padding-bottom: 104px;
       }
     }
-
-    /* =========================
-       DESKTOP / LAPTOP
-    ========================= */
 
     @media (min-width: 1024px) {
       .app {
@@ -845,18 +830,18 @@
       }
 
       .home-scroll {
-        padding: 36px 32px 34px;
+        padding: 30px 32px 34px;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
       }
 
       .home-container {
-        width: min(1240px, calc(100vw - 96px));
+        width: min(1280px, calc(100vw - 96px));
         max-width: none;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: minmax(430px, 0.95fr) minmax(540px, 1.05fr);
+        grid-template-columns: minmax(420px, 0.9fr) minmax(560px, 1.1fr);
         grid-template-areas:
           "title title"
           "hero cards"
@@ -880,7 +865,7 @@
       .quick-panel {
         grid-area: hero;
         margin: 0;
-        min-height: 360px;
+        min-height: 500px;
         height: 100%;
         padding: 36px;
         display: flex;
@@ -913,35 +898,35 @@
         margin: 0;
         display: grid;
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 16px;
       }
 
       .app-card {
-        min-height: 171px;
-        padding: 24px;
+        min-height: 156px;
+        padding: 22px;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 18px;
         border-radius: 28px;
       }
 
       .app-icon {
-        width: 66px;
-        height: 66px;
+        width: 62px;
+        height: 62px;
         border-radius: 22px;
-        font-size: 30px;
+        font-size: 28px;
         margin-bottom: 0;
       }
 
       .app-card h3 {
-        font-size: 25px;
+        font-size: 23px;
         line-height: 1.25;
       }
 
       .app-card p {
-        font-size: 14.5px;
-        line-height: 1.65;
-        max-width: 540px;
+        font-size: 13.8px;
+        line-height: 1.6;
+        max-width: 560px;
       }
 
       .badge {
@@ -955,7 +940,7 @@
       }
 
       .app-action {
-        margin-top: 14px;
+        margin-top: 12px;
         font-size: 14px;
       }
 
@@ -969,7 +954,7 @@
         left: 50%;
         right: auto;
         bottom: 24px;
-        width: 520px;
+        width: 620px;
         height: 78px;
         transform: translateX(-50%);
         border-radius: 28px;
@@ -979,7 +964,7 @@
 
       .nav-btn {
         border-radius: 20px;
-        font-size: 12px;
+        font-size: 11.5px;
       }
 
       .nav-btn .nav-icon {
@@ -989,13 +974,13 @@
 
     @media (min-width: 1500px) {
       .home-container {
-        width: min(1320px, calc(100vw - 140px));
-        grid-template-columns: minmax(500px, 1fr) minmax(620px, 1fr);
+        width: min(1340px, calc(100vw - 140px));
+        grid-template-columns: minmax(500px, 1fr) minmax(680px, 1.05fr);
         gap: 24px 32px;
       }
 
       .quick-panel {
-        min-height: 390px;
+        min-height: 520px;
         padding: 42px;
       }
 
@@ -1004,18 +989,18 @@
       }
 
       .app-card {
-        min-height: 182px;
+        min-height: 164px;
       }
     }
 
     @media (min-width: 1024px) and (max-height: 820px) {
       .home-scroll {
-        padding-top: 24px;
+        padding-top: 22px;
         align-items: flex-start;
       }
 
       .quick-panel {
-        min-height: 300px;
+        min-height: 420px;
         padding: 30px;
       }
 
@@ -1024,20 +1009,34 @@
       }
 
       .app-card {
-        min-height: 148px;
-        padding: 21px;
+        min-height: 132px;
+        padding: 18px;
+      }
+
+      .app-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 25px;
       }
 
       .app-card h3 {
-        font-size: 22px;
+        font-size: 21px;
       }
 
       .app-card p {
-        font-size: 13.5px;
+        font-size: 13px;
+      }
+
+      .mini-tags {
+        margin-top: 7px;
+      }
+
+      .app-action {
+        margin-top: 8px;
       }
 
       .bottom-nav {
-        bottom: 16px;
+        bottom: 14px;
       }
     }
   </style>
@@ -1070,7 +1069,7 @@
           <div class="home-container">
             <div class="section-title">
               <h2>Hệ thống điều hành nội bộ</h2>
-              <p>Theo dõi nhiệm vụ, công lệnh và tiến độ xử lý công việc.</p>
+              <p>Theo dõi nhiệm vụ, công lệnh, văn bản Đảng và tiến độ xử lý công việc.</p>
             </div>
 
             <section class="quick-panel">
@@ -1080,8 +1079,8 @@
                 <h3>Hệ thống điều hành nhanh</h3>
 
                 <p>
-                  Tập trung các tiện ích phục vụ nhắc việc văn bản, quản lý công lệnh
-                  và xử lý công việc nội bộ trên cùng một ứng dụng.
+                  Tập trung các tiện ích phục vụ nhắc việc văn bản, quản lý công lệnh,
+                  quản lý văn bản Đảng và xử lý công việc nội bộ trên cùng một ứng dụng.
                 </p>
               </div>
             </section>
@@ -1140,11 +1139,38 @@
                   </div>
                 </div>
               </button>
+
+              <button class="app-card" type="button" onclick="moTab('dang')">
+                <div class="app-icon party">🏛️</div>
+
+                <div class="app-content">
+                  <div class="app-topline">
+                    <h3>Quản lý văn bản Đảng</h3>
+                    <span class="badge internal">Nội bộ</span>
+                  </div>
+
+                  <p>
+                    Đăng ký, tra cứu, lọc nhật ký và quản lý văn bản đi, văn bản đến
+                    của Đảng ủy Trung tâm.
+                  </p>
+
+                  <div class="mini-tags">
+                    <span class="tag-red">Văn bản đi</span>
+                    <span class="tag-purple">Văn bản đến</span>
+                    <span class="tag-blue">Nhật ký</span>
+                  </div>
+
+                  <div class="app-action">
+                    <span>Mở trong ứng dụng</span>
+                    <span>→</span>
+                  </div>
+                </div>
+              </button>
             </section>
 
             <div class="footer">
               Trung tâm Bảo trợ xã hội Tân Hiệp
-              <div class="version">Phiên bản: 1.1</div>
+              <div class="version">Phiên bản: 1.2</div>
             </div>
           </div>
         </div>
@@ -1163,6 +1189,13 @@
           <iframe id="frameCongLenh" src="about:blank" title="Quản lý công lệnh"></iframe>
         </div>
       </section>
+
+      <section id="viewDang" class="view">
+        <div class="frame-wrap">
+          <div class="frame-loading">Đang mở Quản lý văn bản Đảng...</div>
+          <iframe id="frameDang" src="about:blank" title="Quản lý văn bản Đảng"></iframe>
+        </div>
+      </section>
     </main>
 
     <nav class="bottom-nav">
@@ -1179,6 +1212,11 @@
       <button id="navCongLenh" class="nav-btn locked" type="button" onclick="yeuCauMatKhauCongLenh()">
         <span class="nav-icon">🚗</span>
         <span>Công lệnh</span>
+      </button>
+
+      <button id="navDang" class="nav-btn party" type="button" onclick="moTab('dang')">
+        <span class="nav-icon">🏛️</span>
+        <span>Đảng</span>
       </button>
     </nav>
   </div>
@@ -1232,10 +1270,11 @@
   </div>
 
   <script>
-    const APP_CODE_VERSION = "1.1";
+    const APP_CODE_VERSION = "1.2";
 
     const LINK_VAN_BAN = "https://thanhbds2011-droid.github.io/dashboard-van-ban-tanhiep/";
     const LINK_CONG_LENH = "https://thanhbds2011-droid.github.io/CONGLENH_TANHIEP_2026/";
+    const LINK_DANG = "https://thanhbds2011-droid.github.io/quan-ly-van-ban-dang/";
 
     const MAT_KHAU_CONG_LENH = "123456";
 
@@ -1245,13 +1284,16 @@
     const viewHome = document.getElementById("viewHome");
     const viewVanBan = document.getElementById("viewVanBan");
     const viewCongLenh = document.getElementById("viewCongLenh");
+    const viewDang = document.getElementById("viewDang");
 
     const navHome = document.getElementById("navHome");
     const navVanBan = document.getElementById("navVanBan");
     const navCongLenh = document.getElementById("navCongLenh");
+    const navDang = document.getElementById("navDang");
 
     const frameVanBan = document.getElementById("frameVanBan");
     const frameCongLenh = document.getElementById("frameCongLenh");
+    const frameDang = document.getElementById("frameDang");
 
     const lockLayer = document.getElementById("lockLayer");
     const passwordInput = document.getElementById("passwordInput");
@@ -1263,6 +1305,7 @@
 
     let daTaiVanBan = false;
     let daTaiCongLenh = false;
+    let daTaiDang = false;
     let daMoKhoaCongLenh = sessionStorage.getItem("moKhoaCongLenh") === "true";
     let phienBanMoiNhat = null;
 
@@ -1275,10 +1318,12 @@
       viewHome.classList.remove("active");
       viewVanBan.classList.remove("active");
       viewCongLenh.classList.remove("active");
+      viewDang.classList.remove("active");
 
       navHome.classList.remove("active");
       navVanBan.classList.remove("active");
       navCongLenh.classList.remove("active");
+      navDang.classList.remove("active");
     }
 
     function moTab(tab) {
@@ -1316,6 +1361,17 @@
 
         viewCongLenh.classList.add("active");
         navCongLenh.classList.add("active");
+        return;
+      }
+
+      if (tab === "dang") {
+        if (!daTaiDang) {
+          frameDang.src = linkKhongCache(LINK_DANG);
+          daTaiDang = true;
+        }
+
+        viewDang.classList.add("active");
+        navDang.classList.add("active");
       }
     }
 
