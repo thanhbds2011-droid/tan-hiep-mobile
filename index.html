@@ -10,14 +10,12 @@
 
   <title>Ứng dụng Tân Hiệp</title>
 
-  <!-- Hạn chế trình duyệt/iPhone giữ HTML cũ -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.webmanifest?v=1.3" />
-  <link rel="apple-touch-icon" href="icon-192.png?v=1.3" />
+  <link rel="manifest" href="manifest.webmanifest?v=1.4" />
+  <link rel="apple-touch-icon" href="icon-192.png?v=1.4" />
 
   <meta name="theme-color" content="#991b1b" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -38,34 +36,68 @@
     :root {
       --red: #991b1b;
       --red-2: #b91c1c;
+      --red-soft: #fef2f2;
+
       --dark: #111827;
       --muted: #6b7280;
+      --muted-2: #64748b;
+
       --line: #e5e7eb;
+
       --blue: #2563eb;
       --green: #047857;
       --orange: #ea580c;
       --purple: #7c3aed;
+
       --bg: #f8fafc;
       --white: #ffffff;
-      --shadow: 0 16px 38px rgba(15, 23, 42, 0.12);
+
+      --shadow:
+        0 16px 38px rgba(15, 23, 42, 0.12);
+
       --bottom-nav-height: 78px;
+
+      --live-header-height: 76px;
+
+      --workspace-left:
+        max(
+          18px,
+          calc((100vw - 1760px) / 2)
+        );
+
+      --workspace-rail-width: 88px;
+      --workspace-frame-max: 1480px;
     }
 
     html,
     body {
       width: 100%;
       height: 100%;
+
       margin: 0;
       padding: 0;
-      font-family: 'Be Vietnam Pro', Arial, sans-serif;
+
+      font-family:
+        'Be Vietnam Pro',
+        Arial,
+        sans-serif;
+
       background: var(--bg);
       color: var(--dark);
+
       overflow: hidden;
+    }
+
+    body {
+      overscroll-behavior: none;
     }
 
     button,
     input {
-      font-family: 'Be Vietnam Pro', Arial, sans-serif;
+      font-family:
+        'Be Vietnam Pro',
+        Arial,
+        sans-serif;
     }
 
     button {
@@ -73,8 +105,20 @@
       cursor: pointer;
     }
 
+    button:focus-visible,
+    input:focus-visible {
+      outline:
+        3px solid
+        rgba(37, 99, 235, 0.24);
+
+      outline-offset: 2px;
+    }
+
     .app {
+      position: relative;
+
       width: 100%;
+
       height: 100vh;
       height: 100dvh;
 
@@ -107,25 +151,31 @@
     ========================================================= */
 
     .app-header {
+      position: relative;
+      z-index: 60;
+
+      flex: 0 0 auto;
+
       padding:
         calc(12px + env(safe-area-inset-top))
         16px
         12px;
 
-      background: rgba(255, 255, 255, 0.92);
+      background:
+        rgba(255, 255, 255, 0.94);
 
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
 
-      border-bottom: 1px solid rgba(229, 231, 235, 0.85);
-
-      flex: 0 0 auto;
-      z-index: 20;
+      border-bottom:
+        1px solid
+        rgba(229, 231, 235, 0.88);
     }
 
     .header-row {
       display: flex;
       align-items: center;
+
       gap: 12px;
     }
 
@@ -133,48 +183,50 @@
       width: 48px;
       height: 48px;
 
-      border-radius: 16px;
-
-      background: #fff;
-
-      box-shadow:
-        0 10px 24px rgba(153, 27, 27, 0.18);
-
-      overflow: hidden;
+      flex: 0 0 auto;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      flex: 0 0 auto;
+      overflow: hidden;
+
+      border-radius: 16px;
+
+      background: #fff;
+
+      box-shadow:
+        0 10px 24px
+        rgba(153, 27, 27, 0.18);
 
       color: var(--red);
+
       font-weight: 900;
     }
 
     .logo img {
+      display: block;
+
       width: 100%;
       height: 100%;
 
       object-fit: cover;
-
-      display: block;
     }
 
     .header-text {
-      flex: 1;
       min-width: 0;
+      flex: 1;
     }
 
     .header-text h1 {
       margin: 0;
 
+      color: var(--red);
+
       font-size: 17px;
       line-height: 1.25;
 
       font-weight: 900;
-
-      color: var(--red);
 
       letter-spacing: -0.35px;
     }
@@ -182,10 +234,10 @@
     .header-text p {
       margin: 3px 0 0;
 
+      color: var(--muted);
+
       font-size: 11.5px;
       line-height: 1.35;
-
-      color: var(--muted);
 
       font-weight: 600;
 
@@ -195,8 +247,11 @@
     }
 
     .status-dot {
+      flex: 0 0 auto;
+
       display: inline-flex;
       align-items: center;
+
       gap: 5px;
 
       padding: 7px 10px;
@@ -207,11 +262,10 @@
       color: var(--green);
 
       font-size: 11px;
+
       font-weight: 900;
 
       white-space: nowrap;
-
-      flex: 0 0 auto;
     }
 
     .status-dot.offline {
@@ -224,12 +278,12 @@
     ========================================================= */
 
     .content {
+      position: relative;
+
       flex: 1;
       min-height: 0;
 
       overflow: hidden;
-
-      position: relative;
 
       padding-bottom:
         calc(
@@ -261,7 +315,10 @@
 
       overflow-y: auto;
 
-      padding: 16px 16px 18px;
+      padding:
+        16px
+        16px
+        18px;
 
       -webkit-overflow-scrolling: touch;
     }
@@ -280,12 +337,12 @@
     .section-title h2 {
       margin: 0;
 
+      color: var(--dark);
+
       font-size: 22px;
       line-height: 1.25;
 
       font-weight: 900;
-
-      color: var(--dark);
 
       letter-spacing: -0.5px;
     }
@@ -293,10 +350,10 @@
     .section-title p {
       margin: 6px 0 0;
 
+      color: var(--muted);
+
       font-size: 13px;
       line-height: 1.5;
-
-      color: var(--muted);
 
       font-weight: 600;
     }
@@ -306,9 +363,15 @@
     ========================================================= */
 
     .quick-panel {
-      border-radius: 28px;
+      position: relative;
+
+      overflow: hidden;
+
+      margin-bottom: 16px;
 
       padding: 18px;
+
+      border-radius: 28px;
 
       background:
         linear-gradient(
@@ -321,12 +384,6 @@
       color: #fff;
 
       box-shadow: var(--shadow);
-
-      position: relative;
-
-      overflow: hidden;
-
-      margin-bottom: 16px;
     }
 
     .quick-panel::before {
@@ -337,12 +394,13 @@
       width: 180px;
       height: 180px;
 
-      right: -70px;
       top: -75px;
-
-      background: rgba(255,255,255,0.10);
+      right: -70px;
 
       border-radius: 50%;
+
+      background:
+        rgba(255, 255, 255, 0.10);
     }
 
     .quick-panel::after {
@@ -356,9 +414,10 @@
       right: 28px;
       bottom: -86px;
 
-      background: rgba(255,255,255,0.07);
-
       border-radius: 50%;
+
+      background:
+        rgba(255, 255, 255, 0.07);
     }
 
     .quick-panel-content {
@@ -369,22 +428,24 @@
     .quick-chip {
       display: inline-flex;
       align-items: center;
+
       gap: 8px;
 
+      margin-bottom: 12px;
+
       padding: 8px 12px;
-
-      border-radius: 999px;
-
-      background: rgba(255, 255, 255, 0.14);
 
       border:
         1px solid
         rgba(255, 255, 255, 0.22);
 
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.14);
+
       font-size: 12px;
       font-weight: 800;
-
-      margin-bottom: 12px;
     }
 
     .quick-panel h3 {
@@ -401,7 +462,8 @@
     .quick-panel p {
       margin: 10px 0 0;
 
-      color: rgba(255, 255, 255, 0.88);
+      color:
+        rgba(255, 255, 255, 0.88);
 
       font-size: 13.5px;
       line-height: 1.65;
@@ -426,26 +488,28 @@
 
       min-height: 148px;
 
-      border-radius: 24px;
+      display: flex;
 
-      background: rgba(255, 255, 255, 0.96);
+      align-items: flex-start;
 
-      border:
-        1px solid
-        rgba(229, 231, 235, 0.96);
-
-      box-shadow:
-        0 12px 30px rgba(15, 23, 42, 0.08);
+      gap: 15px;
 
       padding: 18px;
 
       text-align: left;
 
-      display: flex;
+      border:
+        1px solid
+        rgba(229, 231, 235, 0.96);
 
-      gap: 15px;
+      border-radius: 24px;
 
-      align-items: flex-start;
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      box-shadow:
+        0 12px 30px
+        rgba(15, 23, 42, 0.08);
 
       transition:
         transform 0.16s ease,
@@ -454,35 +518,39 @@
     }
 
     .app-card:hover {
-      transform: translateY(-2px);
-
-      box-shadow:
-        0 18px 42px rgba(15, 23, 42, 0.14);
+      transform:
+        translateY(-2px);
 
       border-color:
         rgba(153, 27, 27, 0.28);
+
+      box-shadow:
+        0 18px 42px
+        rgba(15, 23, 42, 0.14);
     }
 
     .app-card:active {
-      transform: scale(0.985);
+      transform:
+        scale(0.985);
 
       box-shadow:
-        0 8px 20px rgba(15, 23, 42, 0.10);
+        0 8px 20px
+        rgba(15, 23, 42, 0.10);
     }
 
     .app-icon {
       width: 54px;
       height: 54px;
 
-      border-radius: 18px;
+      flex: 0 0 auto;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      font-size: 25px;
+      border-radius: 18px;
 
-      flex: 0 0 auto;
+      font-size: 25px;
     }
 
     .app-icon.doc {
@@ -502,11 +570,13 @@
 
     .app-content {
       flex: 1;
+
       min-width: 0;
     }
 
     .app-topline {
       display: flex;
+
       align-items: center;
       justify-content: space-between;
 
@@ -518,12 +588,12 @@
     .app-card h3 {
       margin: 0;
 
+      color: var(--dark);
+
       font-size: 18px;
       line-height: 1.3;
 
       font-weight: 900;
-
-      color: var(--dark);
 
       letter-spacing: -0.4px;
     }
@@ -580,20 +650,23 @@
 
     .mini-tags span {
       display: inline-flex;
+
       align-items: center;
       justify-content: center;
 
       padding: 5px 8px;
 
+      border:
+        1px solid #e5e7eb;
+
       border-radius: 999px;
 
       background: #f9fafb;
 
-      border: 1px solid #e5e7eb;
-
       color: #4b5563;
 
       font-size: 10.5px;
+
       font-weight: 800;
 
       white-space: nowrap;
@@ -630,12 +703,12 @@
     }
 
     .app-action {
-      margin-top: 12px;
-
       display: flex;
 
       align-items: center;
       justify-content: space-between;
+
+      margin-top: 12px;
 
       color: var(--red);
 
@@ -650,14 +723,14 @@
     .footer {
       margin-top: 16px;
 
-      text-align: center;
+      padding-bottom: 6px;
 
       color: #8b95a5;
 
+      text-align: center;
+
       font-size: 11px;
       line-height: 1.5;
-
-      padding-bottom: 6px;
     }
 
     .version {
@@ -669,56 +742,113 @@
     }
 
     /* =========================================================
-       IFRAMES
+       WORKSPACE / IFRAME
     ========================================================= */
 
-    .frame-wrap {
+    .workspace-stage {
       width: 100%;
       height: 100%;
 
-      background: #f8fafc;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .frame-wrap {
+      position: relative;
+
+      width: 100%;
+      height: 100%;
 
       overflow: hidden;
 
-      position: relative;
+      background: #fff;
     }
 
     .frame-loading {
       position: absolute;
-
       inset: 0;
 
-      display: flex;
+      z-index: 3;
+
+      display: none;
+
       align-items: center;
       justify-content: center;
 
+      padding: 24px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff,
+          #f8fafc
+        );
+
       color: var(--red);
+
+      text-align: center;
 
       font-size: 14px;
       font-weight: 800;
-
-      background: #f8fafc;
-
-      z-index: 1;
     }
 
-    iframe {
-      position: relative;
+    .frame-loading::before {
+      content: "";
 
+      width: 22px;
+      height: 22px;
+
+      margin-right: 10px;
+
+      border:
+        3px solid
+        rgba(153, 27, 27, 0.16);
+
+      border-top-color:
+        var(--red);
+
+      border-radius: 50%;
+
+      animation:
+        frameSpin 0.75s linear infinite;
+    }
+
+    .frame-wrap.is-loading
+    .frame-loading {
+      display: flex;
+    }
+
+    .frame-wrap iframe {
+      position: relative;
       z-index: 2;
+
+      display: block;
 
       width: 100%;
       height: 100%;
 
       border: 0;
 
-      display: block;
-
       background: #fff;
+
+      opacity: 1;
+
+      transition:
+        opacity 0.18s ease;
+    }
+
+    .frame-wrap.is-loading iframe {
+      opacity: 0;
+    }
+
+    @keyframes frameSpin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* =========================================================
-       BOTTOM NAVIGATION
+       NAVIGATION - MOBILE DEFAULT
     ========================================================= */
 
     .bottom-nav {
@@ -736,10 +866,24 @@
           env(safe-area-inset-bottom)
         );
 
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 6px;
+
       padding:
         8px
         8px
-        calc(8px + env(safe-area-inset-bottom));
+        calc(
+          8px +
+          env(safe-area-inset-bottom)
+        );
+
+      border-top:
+        1px solid
+        rgba(229, 231, 235, 0.95);
 
       background:
         rgba(255, 255, 255, 0.94);
@@ -747,29 +891,15 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
 
-      border-top:
-        1px solid
-        rgba(229, 231, 235, 0.95);
-
       box-shadow:
-        0 -10px 30px rgba(15, 23, 42, 0.08);
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 6px;
+        0 -10px 30px
+        rgba(15, 23, 42, 0.08);
     }
 
     .nav-btn {
+      min-width: 0;
+
       height: 100%;
-
-      border-radius: 16px;
-
-      background: transparent;
-
-      color: #6b7280;
 
       display: flex;
       flex-direction: column;
@@ -777,12 +907,31 @@
       align-items: center;
       justify-content: center;
 
+      gap: 4px;
+
+      padding: 5px;
+
+      border-radius: 16px;
+
+      background: transparent;
+
+      color: var(--muted-2);
+
       font-size: 10.5px;
       font-weight: 800;
 
-      gap: 4px;
+      transition:
+        background 0.16s ease,
+        color 0.16s ease,
+        transform 0.16s ease;
+    }
 
-      min-width: 0;
+    .nav-btn:hover {
+      background: #f8fafc;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.97);
     }
 
     .nav-btn .nav-icon {
@@ -790,22 +939,18 @@
       line-height: 1;
     }
 
-    .nav-btn.active {
-      background: #fef2f2;
-      color: var(--red);
-    }
-
-    .nav-btn.locked {
-      color: var(--orange);
-    }
-
+    /*
+     * Tất cả module chưa active dùng cùng màu trung tính.
+     */
+    .nav-btn.locked,
     .nav-btn.party {
-      color: var(--red);
+      color: var(--muted-2);
     }
 
+    .nav-btn.active,
     .nav-btn.active.locked,
     .nav-btn.active.party {
-      background: #fef2f2;
+      background: var(--red-soft);
       color: var(--red);
     }
 
@@ -815,7 +960,6 @@
 
     .lock-layer {
       position: fixed;
-
       inset: 0;
 
       z-index: 99999;
@@ -831,13 +975,11 @@
         rgba(17, 24, 39, 0.64);
 
       pointer-events: auto;
-
       touch-action: auto;
     }
 
     .lock-box {
       position: relative;
-
       z-index: 100000;
 
       width: 100%;
@@ -850,10 +992,10 @@
       background: #fff;
 
       box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.32);
+        0 24px 60px
+        rgba(0, 0, 0, 0.32);
 
       pointer-events: auto;
-
       touch-action: auto;
     }
 
@@ -861,16 +1003,15 @@
       width: 58px;
       height: 58px;
 
-      border-radius: 19px;
-
       margin: 0 auto 13px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      background: #fef2f2;
+      border-radius: 19px;
 
+      background: #fef2f2;
       color: var(--red);
 
       font-size: 28px;
@@ -879,9 +1020,9 @@
     .lock-box h2 {
       margin: 0 0 8px;
 
-      text-align: center;
-
       color: var(--dark);
+
+      text-align: center;
 
       font-size: 20px;
       line-height: 1.25;
@@ -892,9 +1033,9 @@
     .lock-box p {
       margin: 0 0 16px;
 
-      text-align: center;
-
       color: var(--muted);
+
+      text-align: center;
 
       font-size: 13px;
       line-height: 1.5;
@@ -904,30 +1045,27 @@
 
     .password-input {
       position: relative;
-
       z-index: 100001;
 
       width: 100%;
       height: 52px;
 
+      padding: 0 14px;
+
       border:
-        1px solid
-        #d1d5db;
+        1px solid #d1d5db;
 
       border-radius: 15px;
 
-      padding: 0 14px;
-
       outline: none;
-
-      font-size: 16px;
-      font-weight: 700;
 
       background: #fff;
       color: #111827;
 
-      pointer-events: auto;
+      font-size: 16px;
+      font-weight: 700;
 
+      pointer-events: auto;
       touch-action: manipulation;
 
       -webkit-user-select: text;
@@ -941,7 +1079,8 @@
       border-color: var(--red);
 
       box-shadow:
-        0 0 0 4px rgba(185, 28, 28, 0.12);
+        0 0 0 4px
+        rgba(185, 28, 28, 0.12);
     }
 
     .error-text {
@@ -949,24 +1088,23 @@
 
       margin-top: 10px;
 
-      text-align: center;
-
       color: var(--red);
+
+      text-align: center;
 
       font-size: 13px;
       font-weight: 800;
     }
 
     .lock-actions {
+      position: relative;
+      z-index: 100001;
+
       display: flex;
 
       gap: 10px;
 
       margin-top: 15px;
-
-      position: relative;
-
-      z-index: 100001;
     }
 
     .lock-actions button {
@@ -980,7 +1118,6 @@
       font-weight: 900;
 
       pointer-events: auto;
-
       touch-action: manipulation;
     }
 
@@ -1000,7 +1137,6 @@
 
     .update-layer {
       position: fixed;
-
       inset: 0;
 
       z-index: 90000;
@@ -1027,14 +1163,13 @@
       background: #fff;
 
       box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.32);
+        0 24px 60px
+        rgba(0, 0, 0, 0.32);
     }
 
     .update-icon {
       width: 58px;
       height: 58px;
-
-      border-radius: 19px;
 
       margin: 0 auto 13px;
 
@@ -1042,8 +1177,9 @@
       align-items: center;
       justify-content: center;
 
-      background: #eff6ff;
+      border-radius: 19px;
 
+      background: #eff6ff;
       color: #2563eb;
 
       font-size: 28px;
@@ -1052,9 +1188,9 @@
     .update-box h2 {
       margin: 0 0 8px;
 
-      text-align: center;
-
       color: #111827;
+
+      text-align: center;
 
       font-size: 20px;
       line-height: 1.25;
@@ -1065,9 +1201,9 @@
     .update-box p {
       margin: 0 0 16px;
 
-      text-align: center;
-
       color: #6b7280;
+
+      text-align: center;
 
       font-size: 13px;
       line-height: 1.5;
@@ -1113,7 +1249,10 @@
        TABLET
     ========================================================= */
 
-    @media (min-width: 768px) and (max-width: 1023px) {
+    @media
+    (min-width: 768px)
+    and
+    (max-width: 1023px) {
 
       .app-header {
         padding-left: 24px;
@@ -1137,8 +1276,6 @@
       }
 
       .app-grid {
-        grid-template-columns: 1fr;
-
         gap: 18px;
       }
 
@@ -1155,7 +1292,6 @@
       .bottom-nav {
         left: 50%;
         right: auto;
-
         bottom: 18px;
 
         width:
@@ -1164,18 +1300,18 @@
             calc(100% - 32px)
           );
 
+        height: 76px;
+
+        padding: 8px;
+
         transform:
           translateX(-50%);
-
-        border-radius: 26px;
 
         border:
           1px solid
           rgba(229, 231, 235, 0.95);
 
-        height: 76px;
-
-        padding: 8px;
+        border-radius: 26px;
       }
 
       .content {
@@ -1184,7 +1320,7 @@
     }
 
     /* =========================================================
-       DESKTOP
+       DESKTOP - HOME
     ========================================================= */
 
     @media (min-width: 1024px) {
@@ -1198,7 +1334,7 @@
           ),
           radial-gradient(
             circle at 100% 100%,
-            rgba(37, 99, 235, 0.16),
+            rgba(37, 99, 235, 0.14),
             transparent 36%
           ),
           linear-gradient(
@@ -1211,6 +1347,9 @@
 
       .app-header {
         padding: 14px 32px;
+
+        transition:
+          padding 0.18s ease;
       }
 
       .header-row {
@@ -1221,6 +1360,9 @@
           );
 
         margin: 0 auto;
+
+        transition:
+          width 0.18s ease;
       }
 
       .logo {
@@ -1228,6 +1370,10 @@
         height: 54px;
 
         border-radius: 18px;
+
+        transition:
+          width 0.18s ease,
+          height 0.18s ease;
       }
 
       .header-text h1 {
@@ -1246,19 +1392,21 @@
 
       .content {
         padding-bottom: 118px;
+
+        transition:
+          padding 0.18s ease;
       }
 
       .home-scroll {
+        display: flex;
+
+        align-items: flex-start;
+        justify-content: center;
+
         padding:
           30px
           32px
           34px;
-
-        display: flex;
-
-        justify-content: center;
-
-        align-items: flex-start;
       }
 
       .home-container {
@@ -1270,8 +1418,6 @@
 
         max-width: none;
 
-        margin: 0 auto;
-
         display: grid;
 
         grid-template-columns:
@@ -1282,15 +1428,13 @@
           "hero cards"
           "footer footer";
 
+        align-items: stretch;
+
         gap: 22px 28px;
 
-        align-items: stretch;
+        margin: 0 auto;
       }
 
-      /*
-       * Trên desktop phần giới thiệu đã nằm
-       * trực tiếp trong hero bên trái.
-       */
       .section-title {
         display: none;
       }
@@ -1298,41 +1442,40 @@
       .quick-panel {
         grid-area: hero;
 
-        margin: 0;
-
         min-height: 500px;
         height: 100%;
 
-        padding: 36px;
-
         display: flex;
         align-items: center;
+
+        margin: 0;
+
+        padding: 36px;
 
         border-radius: 30px;
       }
 
       .quick-chip {
-        font-size: 13px;
+        margin-bottom: 18px;
 
         padding: 9px 14px;
 
-        margin-bottom: 18px;
+        font-size: 13px;
       }
 
       .quick-panel h3 {
-        font-size: 42px;
+        max-width: 560px;
 
+        font-size: 42px;
         line-height: 1.16;
 
         letter-spacing: -1px;
-
-        max-width: 560px;
       }
 
       .quick-panel p {
-        margin-top: 16px;
-
         max-width: 560px;
+
+        margin-top: 16px;
 
         font-size: 15px;
         line-height: 1.7;
@@ -1341,25 +1484,23 @@
       .app-grid {
         grid-area: cards;
 
-        margin: 0;
-
         display: grid;
 
         grid-template-columns: 1fr;
 
         gap: 16px;
+
+        margin: 0;
       }
 
       .app-card {
         min-height: 156px;
 
-        padding: 22px;
-
-        display: flex;
-
         align-items: center;
 
         gap: 18px;
+
+        padding: 22px;
 
         border-radius: 28px;
       }
@@ -1368,25 +1509,23 @@
         width: 62px;
         height: 62px;
 
+        margin-bottom: 0;
+
         border-radius: 22px;
 
         font-size: 28px;
-
-        margin-bottom: 0;
       }
 
       .app-card h3 {
         font-size: 23px;
-
         line-height: 1.25;
       }
 
       .app-card p {
-        font-size: 13.8px;
-
-        line-height: 1.6;
-
         max-width: 560px;
+
+        font-size: 13.8px;
+        line-height: 1.6;
       }
 
       .badge {
@@ -1396,9 +1535,9 @@
       }
 
       .mini-tags span {
-        font-size: 11px;
-
         padding: 5px 9px;
+
+        font-size: 11px;
       }
 
       .app-action {
@@ -1415,6 +1554,9 @@
         padding-top: 2px;
       }
 
+      /*
+       * Dock dưới chỉ dùng khi đang ở Trang chủ.
+       */
       .bottom-nav {
         left: 50%;
         right: auto;
@@ -1424,16 +1566,16 @@
         width: 620px;
         height: 78px;
 
+        padding: 8px;
+
         transform:
           translateX(-50%);
-
-        border-radius: 28px;
 
         border:
           1px solid
           rgba(229, 231, 235, 0.95);
 
-        padding: 8px;
+        border-radius: 28px;
       }
 
       .nav-btn {
@@ -1445,7 +1587,221 @@
       .nav-btn .nav-icon {
         font-size: 22px;
       }
+
+      /* =====================================================
+         DESKTOP WORKSPACE MODE
+         Khi mở Văn bản / Công lệnh / Đảng
+      ===================================================== */
+
+      .app.workspace-mode {
+        background:
+          linear-gradient(
+            180deg,
+            #f8fafc 0%,
+            #eef3f9 100%
+          );
+      }
+
+      /*
+       * Header được thu gọn khi làm việc trong module.
+       */
+      .app.workspace-mode
+      .app-header {
+        padding:
+          9px
+          28px;
+      }
+
+      .app.workspace-mode
+      .header-row {
+        width:
+          min(
+            1600px,
+            calc(100vw - 48px)
+          );
+      }
+
+      .app.workspace-mode
+      .logo {
+        width: 44px;
+        height: 44px;
+
+        border-radius: 14px;
+      }
+
+      .app.workspace-mode
+      .header-text h1 {
+        font-size: 17px;
+      }
+
+      .app.workspace-mode
+      .header-text p {
+        font-size: 11px;
+      }
+
+      .app.workspace-mode
+      .status-dot {
+        padding: 7px 11px;
+
+        font-size: 11px;
+      }
+
+      /*
+       * Không chừa khoảng cho dock dưới.
+       * Chừa bên trái cho module rail.
+       */
+      .app.workspace-mode
+      .content {
+        padding:
+          18px
+          22px
+          18px
+          calc(
+            var(--workspace-left) +
+            var(--workspace-rail-width) +
+            18px
+          );
+      }
+
+      .app.workspace-mode
+      .view.active {
+        overflow: visible;
+      }
+
+      .app.workspace-mode
+      .workspace-stage {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      /*
+       * Khung ứng dụng con.
+       */
+      .app.workspace-mode
+      .frame-wrap {
+        width: 100%;
+        max-width:
+          var(--workspace-frame-max);
+
+        height: 100%;
+
+        border:
+          1px solid
+          rgba(203, 213, 225, 0.88);
+
+        border-radius: 22px;
+
+        background: #fff;
+
+        box-shadow:
+          0 18px 46px
+          rgba(15, 23, 42, 0.10);
+
+        overflow: hidden;
+      }
+
+      /*
+       * Dock dưới biến thành module rail bên trái.
+       */
+      .app.workspace-mode
+      .bottom-nav {
+        top:
+          calc(
+            var(--live-header-height) +
+            18px
+          );
+
+        bottom: 18px;
+
+        left:
+          var(--workspace-left);
+
+        right: auto;
+
+        width:
+          var(--workspace-rail-width);
+
+        height: auto;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+        justify-content: flex-start;
+
+        gap: 8px;
+
+        padding: 10px 8px;
+
+        transform: none;
+
+        border:
+          1px solid
+          rgba(203, 213, 225, 0.88);
+
+        border-radius: 22px;
+
+        background:
+          rgba(255, 255, 255, 0.95);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        box-shadow:
+          0 14px 34px
+          rgba(15, 23, 42, 0.10);
+      }
+
+      .app.workspace-mode
+      .nav-btn {
+        flex: 0 0 auto;
+
+        width: 100%;
+        height: 72px;
+
+        gap: 6px;
+
+        padding: 8px 4px;
+
+        border-radius: 16px;
+
+        color: var(--muted-2);
+
+        font-size: 10.5px;
+        line-height: 1.25;
+
+        text-align: center;
+      }
+
+      .app.workspace-mode
+      .nav-btn .nav-icon {
+        font-size: 22px;
+      }
+
+      .app.workspace-mode
+      .nav-btn.active,
+      .app.workspace-mode
+      .nav-btn.active.locked,
+      .app.workspace-mode
+      .nav-btn.active.party {
+        background: var(--red-soft);
+        color: var(--red);
+
+        box-shadow:
+          inset 0 0 0 1px
+          rgba(185, 28, 28, 0.06);
+      }
     }
+
+    /* =========================================================
+       LARGE DESKTOP
+    ========================================================= */
 
     @media (min-width: 1500px) {
 
@@ -1478,12 +1834,19 @@
       }
     }
 
-    @media (min-width: 1024px) and (max-height: 820px) {
+    /* =========================================================
+       DESKTOP THẤP
+    ========================================================= */
+
+    @media
+    (min-width: 1024px)
+    and
+    (max-height: 820px) {
 
       .home-scroll {
-        padding-top: 22px;
-
         align-items: flex-start;
+
+        padding-top: 22px;
       }
 
       .quick-panel {
@@ -1525,8 +1888,91 @@
         margin-top: 8px;
       }
 
+      .app:not(.workspace-mode)
       .bottom-nav {
         bottom: 14px;
+      }
+
+      .app.workspace-mode
+      .content {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .app.workspace-mode
+      .bottom-nav {
+        top:
+          calc(
+            var(--live-header-height) +
+            12px
+          );
+
+        bottom: 12px;
+      }
+
+      .app.workspace-mode
+      .nav-btn {
+        height: 64px;
+      }
+    }
+
+    /* =========================================================
+       DESKTOP NHỎ
+    ========================================================= */
+
+    @media
+    (min-width: 1024px)
+    and
+    (max-width: 1180px) {
+
+      :root {
+        --workspace-rail-width: 78px;
+      }
+
+      .app.workspace-mode
+      .content {
+        padding-right: 14px;
+
+        padding-left:
+          calc(
+            var(--workspace-left) +
+            var(--workspace-rail-width) +
+            12px
+          );
+      }
+
+      .app.workspace-mode
+      .nav-btn {
+        height: 68px;
+
+        font-size: 9.5px;
+      }
+
+      .app.workspace-mode
+      .nav-btn .nav-icon {
+        font-size: 20px;
+      }
+
+      .app.workspace-mode
+      .frame-wrap {
+        border-radius: 18px;
+      }
+    }
+
+    /* =========================================================
+       GIẢM CHUYỂN ĐỘNG
+    ========================================================= */
+
+    @media
+    (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
       }
     }
   </style>
@@ -1534,25 +1980,34 @@
 
 <body>
 
-  <div class="app">
+  <div
+    id="appShell"
+    class="app"
+  >
 
     <!-- =====================================================
          HEADER
     ====================================================== -->
 
-    <header class="app-header">
+    <header
+      id="appHeader"
+      class="app-header"
+    >
 
       <div class="header-row">
 
         <div class="logo">
+
           <img
-            src="icon-1024.png?v=1.3"
+            src="icon-1024.png?v=1.4"
             alt="Logo Tân Hiệp"
             onerror="this.remove(); this.parentElement.textContent='TH';"
           />
+
         </div>
 
         <div class="header-text">
+
           <h1>
             Trung tâm Bảo trợ xã hội Tân Hiệp
           </h1>
@@ -1560,6 +2015,7 @@
           <p>
             Cổng điều hành số nội bộ
           </p>
+
         </div>
 
         <div
@@ -1579,7 +2035,9 @@
 
     <main class="content">
 
-      <!-- HOME -->
+      <!-- ===================================================
+           HOME
+      ==================================================== -->
 
       <section
         id="viewHome"
@@ -1603,8 +2061,6 @@
 
             </div>
 
-            <!-- HERO -->
-
             <section class="quick-panel">
 
               <div class="quick-panel-content">
@@ -1627,8 +2083,6 @@
               </div>
 
             </section>
-
-            <!-- APPLICATION CARDS -->
 
             <section class="app-grid">
 
@@ -1759,7 +2213,7 @@
 
               </button>
 
-              <!-- VĂN BẢN ĐẢNG -->
+              <!-- ĐẢNG -->
 
               <button
                 class="app-card"
@@ -1824,8 +2278,6 @@
 
             </section>
 
-            <!-- FOOTER -->
-
             <div class="footer">
 
               Trung tâm Bảo trợ xã hội Tân Hiệp
@@ -1834,7 +2286,7 @@
                 id="versionDisplay"
                 class="version"
               >
-                Phiên bản: 1.3
+                Phiên bản: 1.4
               </div>
 
             </div>
@@ -1845,79 +2297,100 @@
 
       </section>
 
-      <!-- =====================================================
+      <!-- ===================================================
            VĂN BẢN
-      ====================================================== -->
+      ==================================================== -->
 
       <section
         id="viewVanBan"
         class="view"
       >
 
-        <div class="frame-wrap">
+        <div class="workspace-stage">
 
-          <div class="frame-loading">
-            Đang mở Nhắc việc, xử lý văn bản...
+          <div
+            id="wrapVanBan"
+            class="frame-wrap"
+          >
+
+            <div class="frame-loading">
+              Đang mở Nhắc việc, xử lý văn bản...
+            </div>
+
+            <iframe
+              id="frameVanBan"
+              src="about:blank"
+              title="Nhắc việc, xử lý văn bản"
+              allow="clipboard-read; clipboard-write"
+            ></iframe>
+
           </div>
-
-          <iframe
-            id="frameVanBan"
-            src="about:blank"
-            title="Nhắc việc, xử lý văn bản"
-            allow="clipboard-read; clipboard-write"
-          ></iframe>
 
         </div>
 
       </section>
 
-      <!-- =====================================================
+      <!-- ===================================================
            CÔNG LỆNH
-      ====================================================== -->
+      ==================================================== -->
 
       <section
         id="viewCongLenh"
         class="view"
       >
 
-        <div class="frame-wrap">
+        <div class="workspace-stage">
 
-          <div class="frame-loading">
-            Đang mở Quản lý công lệnh...
+          <div
+            id="wrapCongLenh"
+            class="frame-wrap"
+          >
+
+            <div class="frame-loading">
+              Đang mở Quản lý công lệnh...
+            </div>
+
+            <iframe
+              id="frameCongLenh"
+              src="about:blank"
+              title="Quản lý công lệnh"
+              allow="clipboard-read; clipboard-write"
+            ></iframe>
+
           </div>
-
-          <iframe
-            id="frameCongLenh"
-            src="about:blank"
-            title="Quản lý công lệnh"
-            allow="clipboard-read; clipboard-write"
-          ></iframe>
 
         </div>
 
       </section>
 
-      <!-- =====================================================
+      <!-- ===================================================
            ĐẢNG
-      ====================================================== -->
+      ==================================================== -->
 
       <section
         id="viewDang"
         class="view"
       >
 
-        <div class="frame-wrap">
+        <div class="workspace-stage">
 
-          <div class="frame-loading">
-            Đang mở Quản lý văn bản Đảng...
+          <div
+            id="wrapDang"
+            class="frame-wrap"
+          >
+
+            <div class="frame-loading">
+              Đang mở Quản lý văn bản Đảng...
+            </div>
+
+            <iframe
+              id="frameDang"
+              src="about:blank"
+              title="Quản lý văn bản Đảng"
+              allow="clipboard-read; clipboard-write"
+            ></iframe>
+
           </div>
-
-          <iframe
-            id="frameDang"
-            src="about:blank"
-            title="Quản lý văn bản Đảng"
-            allow="clipboard-read; clipboard-write"
-          ></iframe>
 
         </div>
 
@@ -1926,7 +2399,10 @@
     </main>
 
     <!-- =====================================================
-         BOTTOM NAVIGATION
+         NAVIGATION
+         Mobile: bottom nav
+         Desktop Home: bottom dock
+         Desktop Module: left rail
     ====================================================== -->
 
     <nav
@@ -1939,6 +2415,7 @@
         class="nav-btn active"
         type="button"
         onclick="moTab('home')"
+        aria-label="Trang chủ"
       >
 
         <span class="nav-icon">
@@ -1956,6 +2433,7 @@
         class="nav-btn"
         type="button"
         onclick="moTab('vanban')"
+        aria-label="Văn bản"
       >
 
         <span class="nav-icon">
@@ -1973,6 +2451,7 @@
         class="nav-btn locked"
         type="button"
         onclick="yeuCauMatKhauCongLenh()"
+        aria-label="Công lệnh"
       >
 
         <span class="nav-icon">
@@ -1990,6 +2469,7 @@
         class="nav-btn party"
         type="button"
         onclick="moTab('dang')"
+        aria-label="Đảng"
       >
 
         <span class="nav-icon">
@@ -2141,13 +2621,11 @@
        VERSION
     ======================================================== */
 
-    const APP_CODE_VERSION = "1.3";
+    const APP_CODE_VERSION =
+      "1.4";
 
-    /*
-     * Prefix dùng riêng cho ứng dụng này.
-     * Tuyệt đối không xóa cache của các ứng dụng GitHub Pages khác.
-     */
-    const APP_CACHE_PREFIX = "tan-hiep-mobile-";
+    const APP_CACHE_PREFIX =
+      "tan-hiep-mobile-";
 
     const UPDATE_STORAGE_KEY =
       "tanHiepUpdateVersion";
@@ -2161,7 +2639,7 @@
     ======================================================== */
 
     const LINK_VAN_BAN =
-      "https://thanhbds2011-droid.github.io/dashboard-van-ban-tanhiep/nhiem-vu";
+      "https://thanhbds2011-droid.github.io/dashboard-van-ban-tanhiep/";
 
     const LINK_CONG_LENH =
       "https://thanhbds2011-droid.github.io/CONGLENH_TANHIEP_2026/";
@@ -2177,86 +2655,162 @@
        DOM
     ======================================================== */
 
+    const appShell =
+      document.getElementById(
+        "appShell"
+      );
+
+    const appHeader =
+      document.getElementById(
+        "appHeader"
+      );
+
+
     const viewHome =
-      document.getElementById("viewHome");
+      document.getElementById(
+        "viewHome"
+      );
 
     const viewVanBan =
-      document.getElementById("viewVanBan");
+      document.getElementById(
+        "viewVanBan"
+      );
 
     const viewCongLenh =
-      document.getElementById("viewCongLenh");
+      document.getElementById(
+        "viewCongLenh"
+      );
 
     const viewDang =
-      document.getElementById("viewDang");
+      document.getElementById(
+        "viewDang"
+      );
 
 
     const navHome =
-      document.getElementById("navHome");
+      document.getElementById(
+        "navHome"
+      );
 
     const navVanBan =
-      document.getElementById("navVanBan");
+      document.getElementById(
+        "navVanBan"
+      );
 
     const navCongLenh =
-      document.getElementById("navCongLenh");
+      document.getElementById(
+        "navCongLenh"
+      );
 
     const navDang =
-      document.getElementById("navDang");
+      document.getElementById(
+        "navDang"
+      );
 
 
     const frameVanBan =
-      document.getElementById("frameVanBan");
+      document.getElementById(
+        "frameVanBan"
+      );
 
     const frameCongLenh =
-      document.getElementById("frameCongLenh");
+      document.getElementById(
+        "frameCongLenh"
+      );
 
     const frameDang =
-      document.getElementById("frameDang");
+      document.getElementById(
+        "frameDang"
+      );
+
+
+    const wrapVanBan =
+      document.getElementById(
+        "wrapVanBan"
+      );
+
+    const wrapCongLenh =
+      document.getElementById(
+        "wrapCongLenh"
+      );
+
+    const wrapDang =
+      document.getElementById(
+        "wrapDang"
+      );
 
 
     const lockLayer =
-      document.getElementById("lockLayer");
+      document.getElementById(
+        "lockLayer"
+      );
 
     const passwordInput =
-      document.getElementById("passwordInput");
+      document.getElementById(
+        "passwordInput"
+      );
 
     const errorText =
-      document.getElementById("errorText");
+      document.getElementById(
+        "errorText"
+      );
 
 
     const updateLayer =
-      document.getElementById("updateLayer");
+      document.getElementById(
+        "updateLayer"
+      );
 
     const updateTitle =
-      document.getElementById("updateTitle");
+      document.getElementById(
+        "updateTitle"
+      );
 
     const updateMessage =
-      document.getElementById("updateMessage");
+      document.getElementById(
+        "updateMessage"
+      );
 
     const updateButton =
-      document.getElementById("updateButton");
+      document.getElementById(
+        "updateButton"
+      );
 
 
     const networkStatus =
-      document.getElementById("networkStatus");
+      document.getElementById(
+        "networkStatus"
+      );
 
     const versionDisplay =
-      document.getElementById("versionDisplay");
+      document.getElementById(
+        "versionDisplay"
+      );
 
 
     /* =======================================================
        STATE
     ======================================================== */
 
-    let daTaiVanBan = false;
+    let daTaiVanBan =
+      false;
 
-    let daTaiCongLenh = false;
+    let daTaiCongLenh =
+      false;
 
-    let daTaiDang = false;
+    let daTaiDang =
+      false;
 
     let daMoKhoaCongLenh =
-      sessionStorage.getItem("moKhoaCongLenh") === "true";
+      sessionStorage.getItem(
+        "moKhoaCongLenh"
+      ) === "true";
 
-    let phienBanMoiNhat = null;
+    let phienBanMoiNhat =
+      null;
+
+    let tabHienTai =
+      "home";
 
 
     /* =======================================================
@@ -2264,9 +2818,45 @@
     ======================================================== */
 
     if (versionDisplay) {
+
       versionDisplay.textContent =
-        "Phiên bản: " + APP_CODE_VERSION;
+        "Phiên bản: " +
+        APP_CODE_VERSION;
     }
+
+
+    /* =======================================================
+       HEADER HEIGHT
+       Dùng để rail desktop luôn nằm đúng dưới header.
+    ======================================================== */
+
+    function capNhatChieuCaoHeader() {
+
+      if (!appHeader) {
+        return;
+      }
+
+      const chieuCao =
+        Math.ceil(
+          appHeader.getBoundingClientRect().height
+        );
+
+      document.documentElement.style.setProperty(
+        "--live-header-height",
+        chieuCao + "px"
+      );
+    }
+
+
+    window.addEventListener(
+      "resize",
+      function() {
+
+        window.requestAnimationFrame(
+          capNhatChieuCaoHeader
+        );
+      }
+    );
 
 
     /* =======================================================
@@ -2299,6 +2889,7 @@
       }
     }
 
+
     window.addEventListener(
       "online",
       capNhatTrangThaiMang
@@ -2309,11 +2900,12 @@
       capNhatTrangThaiMang
     );
 
+
     capNhatTrangThaiMang();
 
 
     /* =======================================================
-       LINK KHÔNG CACHE
+       URL KHÔNG CACHE
     ======================================================== */
 
     function linkKhongCache(link) {
@@ -2352,7 +2944,9 @@
           dau +
           "openFrom=tan-hiep-mobile" +
           "&appVersion=" +
-          encodeURIComponent(APP_CODE_VERSION) +
+          encodeURIComponent(
+            APP_CODE_VERSION
+          ) +
           "&_t=" +
           Date.now()
         );
@@ -2361,60 +2955,222 @@
 
 
     /* =======================================================
-       VIEW
+       IFRAME LOADING
+    ======================================================== */
+
+    function batDauTaiFrame(
+      frame,
+      wrap,
+      link
+    ) {
+
+      if (!frame || !wrap) {
+        return;
+      }
+
+      wrap.classList.add(
+        "is-loading"
+      );
+
+      frame.src =
+        linkKhongCache(link);
+    }
+
+
+    function ketThucTaiFrame(
+      wrap
+    ) {
+
+      if (!wrap) {
+        return;
+      }
+
+      window.setTimeout(
+        function() {
+
+          wrap.classList.remove(
+            "is-loading"
+          );
+
+        },
+        120
+      );
+    }
+
+
+    frameVanBan.addEventListener(
+      "load",
+      function() {
+
+        ketThucTaiFrame(
+          wrapVanBan
+        );
+      }
+    );
+
+
+    frameCongLenh.addEventListener(
+      "load",
+      function() {
+
+        ketThucTaiFrame(
+          wrapCongLenh
+        );
+      }
+    );
+
+
+    frameDang.addEventListener(
+      "load",
+      function() {
+
+        ketThucTaiFrame(
+          wrapDang
+        );
+      }
+    );
+
+
+    /* =======================================================
+       WORKSPACE MODE
+    ======================================================== */
+
+    function capNhatCheDoGiaoDien(
+      tab
+    ) {
+
+      tabHienTai =
+        tab;
+
+      if (tab === "home") {
+
+        appShell.classList.remove(
+          "workspace-mode"
+        );
+
+      } else {
+
+        appShell.classList.add(
+          "workspace-mode"
+        );
+      }
+
+      /*
+       * CSS thay đổi kích thước header,
+       * nên đo lại sau khi browser render.
+       */
+      window.requestAnimationFrame(
+        function() {
+
+          capNhatChieuCaoHeader();
+
+          window.setTimeout(
+            capNhatChieuCaoHeader,
+            200
+          );
+        }
+      );
+    }
+
+
+    /* =======================================================
+       VIEW / NAVIGATION
     ======================================================== */
 
     function anTatCaView() {
 
-      viewHome.classList.remove("active");
+      viewHome.classList.remove(
+        "active"
+      );
 
-      viewVanBan.classList.remove("active");
+      viewVanBan.classList.remove(
+        "active"
+      );
 
-      viewCongLenh.classList.remove("active");
+      viewCongLenh.classList.remove(
+        "active"
+      );
 
-      viewDang.classList.remove("active");
+      viewDang.classList.remove(
+        "active"
+      );
 
 
-      navHome.classList.remove("active");
+      navHome.classList.remove(
+        "active"
+      );
 
-      navVanBan.classList.remove("active");
+      navVanBan.classList.remove(
+        "active"
+      );
 
-      navCongLenh.classList.remove("active");
+      navCongLenh.classList.remove(
+        "active"
+      );
 
-      navDang.classList.remove("active");
+      navDang.classList.remove(
+        "active"
+      );
     }
 
 
     function moTab(tab) {
 
-      anTatCaView();
-
       /*
-       * HOME
+       * Công lệnh phải xác thực trước.
        */
-      if (tab === "home") {
+      if (
+        tab === "conglenh" &&
+        !daMoKhoaCongLenh
+      ) {
 
-        viewHome.classList.add("active");
-
-        navHome.classList.add("active");
+        yeuCauMatKhauCongLenh();
 
         return;
       }
 
 
-      /*
-       * VĂN BẢN
-       */
+      anTatCaView();
+
+      capNhatCheDoGiaoDien(
+        tab
+      );
+
+
+      /* =============================
+         HOME
+      ============================== */
+
+      if (tab === "home") {
+
+        viewHome.classList.add(
+          "active"
+        );
+
+        navHome.classList.add(
+          "active"
+        );
+
+        return;
+      }
+
+
+      /* =============================
+         VĂN BẢN
+      ============================== */
+
       if (tab === "vanban") {
 
         if (!daTaiVanBan) {
 
-          frameVanBan.src =
-            linkKhongCache(
-              LINK_VAN_BAN
-            );
+          batDauTaiFrame(
+            frameVanBan,
+            wrapVanBan,
+            LINK_VAN_BAN
+          );
 
-          daTaiVanBan = true;
+          daTaiVanBan =
+            true;
         }
 
         viewVanBan.classList.add(
@@ -2429,34 +3185,22 @@
       }
 
 
-      /*
-       * CÔNG LỆNH
-       */
+      /* =============================
+         CÔNG LỆNH
+      ============================== */
+
       if (tab === "conglenh") {
-
-        if (!daMoKhoaCongLenh) {
-
-          viewHome.classList.add(
-            "active"
-          );
-
-          navHome.classList.add(
-            "active"
-          );
-
-          yeuCauMatKhauCongLenh();
-
-          return;
-        }
 
         if (!daTaiCongLenh) {
 
-          frameCongLenh.src =
-            linkKhongCache(
-              LINK_CONG_LENH
-            );
+          batDauTaiFrame(
+            frameCongLenh,
+            wrapCongLenh,
+            LINK_CONG_LENH
+          );
 
-          daTaiCongLenh = true;
+          daTaiCongLenh =
+            true;
         }
 
         viewCongLenh.classList.add(
@@ -2471,19 +3215,22 @@
       }
 
 
-      /*
-       * ĐẢNG
-       */
+      /* =============================
+         ĐẢNG
+      ============================== */
+
       if (tab === "dang") {
 
         if (!daTaiDang) {
 
-          frameDang.src =
-            linkKhongCache(
-              LINK_DANG
-            );
+          batDauTaiFrame(
+            frameDang,
+            wrapDang,
+            LINK_DANG
+          );
 
-          daTaiDang = true;
+          daTaiDang =
+            true;
         }
 
         viewDang.classList.add(
@@ -2493,7 +3240,15 @@
         navDang.classList.add(
           "active"
         );
+
+        return;
       }
+
+
+      /*
+       * Fallback.
+       */
+      moTab("home");
     }
 
 
@@ -2503,23 +3258,25 @@
 
     function yeuCauMatKhauCongLenh() {
 
-      /*
-       * Trong phiên hiện tại đã mở khóa.
-       */
       if (daMoKhoaCongLenh) {
 
-        moTab("conglenh");
+        moTab(
+          "conglenh"
+        );
 
         return;
       }
 
-      passwordInput.value = "";
+
+      passwordInput.value =
+        "";
 
       errorText.style.display =
         "none";
 
       lockLayer.style.display =
         "flex";
+
 
       passwordInput.removeAttribute(
         "readonly"
@@ -2529,9 +3286,10 @@
         "disabled"
       );
 
+
       /*
        * Focus ngay trong thao tác người dùng.
-       * Hỗ trợ Safari / iPhone Home Screen.
+       * Giữ tương thích Safari/iPhone Home Screen.
        */
       try {
 
@@ -2543,6 +3301,7 @@
 
         passwordInput.focus();
       }
+
 
       /*
        * Fallback cho một số phiên bản iOS.
@@ -2578,6 +3337,7 @@
       const matKhauNhap =
         passwordInput.value.trim();
 
+
       if (
         matKhauNhap !==
         MAT_KHAU_CONG_LENH
@@ -2600,16 +3360,23 @@
         return;
       }
 
-      daMoKhoaCongLenh = true;
+
+      daMoKhoaCongLenh =
+        true;
+
 
       sessionStorage.setItem(
         "moKhoaCongLenh",
         "true"
       );
 
+
       dongHopMatKhau();
 
-      moTab("conglenh");
+
+      moTab(
+        "conglenh"
+      );
     }
 
 
@@ -2618,16 +3385,14 @@
       lockLayer.style.display =
         "none";
 
-      passwordInput.value = "";
+      passwordInput.value =
+        "";
 
       errorText.style.display =
         "none";
     }
 
 
-    /*
-     * Đảm bảo input vẫn nhận focus trên iPhone.
-     */
     passwordInput.addEventListener(
       "touchend",
       function(event) {
@@ -2695,6 +3460,7 @@
           kiemTraMatKhauCongLenh();
         }
 
+
         if (event.key === "Escape") {
 
           dongHopMatKhau();
@@ -2722,7 +3488,9 @@
        VERSION UTILS
     ======================================================== */
 
-    function chuanHoaPhienBan(version) {
+    function chuanHoaPhienBan(
+      version
+    ) {
 
       return String(
         version || ""
@@ -2744,7 +3512,7 @@
 
 
     /* =======================================================
-       VERSION.JSON
+       KIỂM TRA VERSION.JSON
     ======================================================== */
 
     async function kiemTraBanCapNhat() {
@@ -2757,33 +3525,41 @@
             window.location.href
           );
 
+
         versionUrl.searchParams.set(
           "_t",
           Date.now().toString()
         );
+
 
         const response =
           await fetch(
             versionUrl.toString(),
             {
               method: "GET",
+
               cache: "no-store",
+
               headers: {
+
                 "Cache-Control":
                   "no-cache, no-store, must-revalidate",
+
                 "Pragma":
                   "no-cache"
               }
             }
           );
 
-        if (!response.ok) {
 
+        if (!response.ok) {
           return;
         }
 
+
         const data =
           await response.json();
+
 
         if (
           !data ||
@@ -2793,34 +3569,34 @@
           return;
         }
 
+
         const versionServer =
           chuanHoaPhienBan(
             data.version
           );
+
 
         const versionCode =
           chuanHoaPhienBan(
             APP_CODE_VERSION
           );
 
+
         phienBanMoiNhat =
           versionServer;
 
+
         /*
-         * QUAN TRỌNG:
+         * So trực tiếp version trên server
+         * với APP_CODE_VERSION.
          *
-         * So trực tiếp version.json với APP_CODE_VERSION.
-         *
-         * Không dựa vào localStorage để quyết định
-         * có hiển thị cập nhật hay không.
-         *
-         * Vì vậy nếu iPhone đang giữ index.html cũ 1.2
-         * mà server đã là 1.3 thì modal vẫn xuất hiện.
+         * Nếu iPhone còn giữ HTML 1.3
+         * trong khi version.json là 1.4,
+         * modal vẫn xuất hiện.
          */
         if (
           versionServer &&
-          versionServer !==
-          versionCode
+          versionServer !== versionCode
         ) {
 
           if (data.title) {
@@ -2829,11 +3605,13 @@
               data.title;
           }
 
+
           if (data.message) {
 
             updateMessage.textContent =
               data.message;
           }
+
 
           updateLayer.style.display =
             "flex";
@@ -2841,18 +3619,18 @@
           return;
         }
 
-        /*
-         * Đang chạy đúng phiên bản mới nhất.
-         */
+
         localStorage.setItem(
           UPDATE_STORAGE_KEY,
           versionServer
         );
 
+
         localStorage.setItem(
           CODE_STORAGE_KEY,
           APP_CODE_VERSION
         );
+
 
       } catch (error) {
 
@@ -2865,20 +3643,21 @@
 
 
     /* =======================================================
-       CACHE RIÊNG ỨNG DỤNG
+       XÓA CACHE RIÊNG TAN-HIEP-MOBILE
     ======================================================== */
 
     async function xoaCacheUngDung() {
 
       if (!("caches" in window)) {
-
         return;
       }
+
 
       try {
 
         const keys =
           await caches.keys();
+
 
         const cacheCuaApp =
           keys.filter(
@@ -2890,7 +3669,9 @@
             }
           );
 
+
         await Promise.all(
+
           cacheCuaApp.map(
             function(key) {
 
@@ -2899,7 +3680,9 @@
               );
             }
           )
+
         );
+
 
       } catch (error) {
 
@@ -2912,7 +3695,7 @@
 
 
     /* =======================================================
-       SERVICE WORKER RIÊNG ỨNG DỤNG
+       HỦY SERVICE WORKER RIÊNG APP
     ======================================================== */
 
     async function huyServiceWorkerUngDung() {
@@ -2927,6 +3710,7 @@
         return;
       }
 
+
       try {
 
         const registrations =
@@ -2934,11 +3718,13 @@
             .serviceWorker
             .getRegistrations();
 
+
         const appScope =
           new URL(
             "./",
             window.location.href
           ).pathname;
+
 
         const registrationsCuaApp =
           registrations.filter(
@@ -2951,10 +3737,11 @@
                     registration.scope
                   ).pathname;
 
+
                 return (
-                  scopePath ===
-                  appScope
+                  scopePath === appScope
                 );
+
 
               } catch (error) {
 
@@ -2963,14 +3750,18 @@
             }
           );
 
+
         await Promise.all(
+
           registrationsCuaApp.map(
             function(registration) {
 
               return registration.unregister();
             }
           )
+
         );
+
 
       } catch (error) {
 
@@ -2983,7 +3774,7 @@
 
 
     /* =======================================================
-       UPDATE NOW
+       CẬP NHẬT NGAY
     ======================================================== */
 
     async function capNhatUngDung(
@@ -2997,6 +3788,7 @@
           APP_CODE_VERSION
         );
 
+
       try {
 
         if (updateButton) {
@@ -3008,13 +3800,16 @@
             "Đang cập nhật...";
         }
 
+
         /*
          * Chỉ xóa cache của tan-hiep-mobile.
          */
         await xoaCacheUngDung();
 
+
         /*
-         * Chỉ unregister SW của tan-hiep-mobile.
+         * Chỉ unregister service worker
+         * thuộc tan-hiep-mobile.
          */
         await huyServiceWorkerUngDung();
 
@@ -3024,6 +3819,7 @@
           targetVersion
         );
 
+
         localStorage.setItem(
           CODE_STORAGE_KEY,
           targetVersion
@@ -3031,31 +3827,38 @@
 
 
         /*
-         * Tạo URL hoàn toàn mới
-         * để Safari/iPhone không dùng trang cũ.
+         * URL mới hoàn toàn để ép Safari/iPhone
+         * lấy index.html mới.
          */
         const url =
           new URL(
             window.location.href
           );
 
-        url.hash = "";
 
-        url.search = "";
+        url.hash =
+          "";
+
+        url.search =
+          "";
+
 
         url.searchParams.set(
           "v",
           targetVersion
         );
 
+
         url.searchParams.set(
           "_refresh",
           Date.now().toString()
         );
 
+
         window.location.replace(
           url.toString()
         );
+
 
       } catch (error) {
 
@@ -3064,15 +3867,18 @@
           error
         );
 
+
         const url =
           new URL(
             window.location.href
           );
 
+
         url.searchParams.set(
           "_refresh",
           Date.now().toString()
         );
+
 
         window.location.replace(
           url.toString()
@@ -3082,7 +3888,7 @@
 
 
     /* =======================================================
-       CACHE VERSION CỦA INDEX
+       KIỂM TRA CODE VERSION LOCAL
     ======================================================== */
 
     async function lamMoiBoNhoTam() {
@@ -3094,6 +3900,7 @@
             CODE_STORAGE_KEY
           );
 
+
         if (
           chuanHoaPhienBan(
             banCodeDangLuu
@@ -3103,16 +3910,15 @@
           )
         ) {
 
-          /*
-           * Chỉ xóa cache của ứng dụng này.
-           */
           await xoaCacheUngDung();
+
 
           localStorage.setItem(
             CODE_STORAGE_KEY,
             APP_CODE_VERSION
           );
         }
+
 
       } catch (error) {
 
@@ -3140,6 +3946,7 @@
         return;
       }
 
+
       try {
 
         const registration =
@@ -3156,13 +3963,11 @@
               }
             );
 
-        /*
-         * Yêu cầu kiểm tra sw.js mới
-         * thay vì tiếp tục dùng SW cũ.
-         */
+
         try {
 
           await registration.update();
+
 
         } catch (error) {
 
@@ -3171,6 +3976,7 @@
             error
           );
         }
+
 
       } catch (error) {
 
@@ -3188,20 +3994,27 @@
 
     async function khoiDongUngDung() {
 
-      /*
-       * 1. Làm sạch cache của version cũ.
-       */
+      capNhatChieuCaoHeader();
+
+      capNhatTrangThaiMang();
+
+
       await lamMoiBoNhoTam();
 
-      /*
-       * 2. Đăng ký SW hiện tại.
-       */
+
       await dangKyServiceWorker();
 
-      /*
-       * 3. Kiểm tra version.json.
-       */
+
       await kiemTraBanCapNhat();
+
+
+      /*
+       * Đo lại lần cuối sau khi font/CSS render.
+       */
+      window.setTimeout(
+        capNhatChieuCaoHeader,
+        250
+      );
     }
 
 
@@ -3209,7 +4022,7 @@
 
 
     /* =======================================================
-       KHI NGƯỜI DÙNG QUAY LẠI APP
+       APP QUAY LẠI FOREGROUND
     ======================================================== */
 
     document.addEventListener(
@@ -3223,6 +4036,8 @@
 
           capNhatTrangThaiMang();
 
+          capNhatChieuCaoHeader();
+
           kiemTraBanCapNhat();
         }
       }
@@ -3233,10 +4048,9 @@
       "pageshow",
       function(event) {
 
-        /*
-         * Safari có thể khôi phục trang
-         * từ Back/Forward Cache.
-         */
+        capNhatChieuCaoHeader();
+
+
         if (event.persisted) {
 
           kiemTraBanCapNhat();
